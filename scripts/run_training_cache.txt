@@ -1,0 +1,4 @@
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene globe --stage cache --batch_size 4096 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene house --stage cache --batch_size 4096 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene spheres --stage cache --batch_size 4096 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene statue --stage cache --batch_size 4096 --early_exit_steps 100000

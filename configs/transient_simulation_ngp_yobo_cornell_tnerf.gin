@@ -1,0 +1,16 @@
+include 'transient_simulation_ngp_yobo_cornell.gin'
+
+
+TransientNeRFMLP.use_ambient = False
+TransientNeRFMLP.use_indirect = False
+TransientNeRFMLP.use_active = True
+TransientMaterialMLP.use_active = False
+TransientMaterialMLP.use_indirect = False
+TransientSurfaceLightFieldMLP.use_indirect = False
+Config.use_surfaces = True
+
+# Config.itof_frequency_phase_shifts = []
+# Config.data_loss_gauss_mult = 0.01
+# Config.filter_direct = True
+# 
+# TransientNeRFMLP.rgb_max = 10.0

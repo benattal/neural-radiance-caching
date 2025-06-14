@@ -1,0 +1,33 @@
+include 'nero_ngp_yobo.gin'
+
+Config.data_dir = "~/data/GlossySynthetic/teapot"
+
+ProposalVolumeSampler.anneal_clip = 0.4
+ProposalVolumeSampler.anneal_slope = 10.0
+
+Config.distortion_loss_mult = 0.01
+Config.orientation_loss_mult = 0.01
+
+Config.predicted_normal_loss_mult = 0.25
+Config.predicted_normal_reverse_loss_mult = 0.25
+Config.predicted_normal_loss_stopgrad_weight = 0.0
+
+NeRFMLP.stopgrad_normals_weight = 0.5
+Config.geometry_smoothness_weight_normals = 0.5
+
+Config.opaque_loss_weight = 10.0
+Config.empty_loss_weight = 10.0
+
+Config.use_normal_weight_ease = True
+Config.use_normal_weight_ease_backward = True
+
+Config.normal_weight_ease_frac = 0.0
+Config.normal_weight_ease_start = 0.0
+Config.normal_weight_ease_min = 0.001
+
+Config.use_normal_weight_decay = False
+Config.use_normal_weight_decay_backward = False
+
+Config.normal_weight_decay_frac = 0.1
+Config.normal_weight_decay_start = 0.1
+Config.normal_weight_decay_min = 0.01

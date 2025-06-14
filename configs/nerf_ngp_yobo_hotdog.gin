@@ -1,0 +1,18 @@
+include 'nerf_ngp_yobo.gin'
+
+Config.data_dir = "/scratch/year/battal/data/tensoir/hotdog"
+
+ProposalVolumeSampler.anneal_clip = 0.4
+
+Config.predicted_normal_loss_mult = 0.05
+Config.predicted_normal_reverse_loss_mult = 0.05
+Config.geometry_smoothness_weight_normals = 0.001
+Config.distortion_loss_mult = 0.0
+Config.orientation_loss_mult = 0.0
+
+Config.use_normal_weight_ease = True
+Config.use_normal_weight_ease_backward = True
+
+Config.normal_weight_ease_frac = 0.0
+Config.normal_weight_ease_start = 0.0
+Config.normal_weight_ease_min = 0.001

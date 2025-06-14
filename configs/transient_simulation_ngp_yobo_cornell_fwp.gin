@@ -1,0 +1,51 @@
+include 'transient_simulation_ngp_yobo.gin'
+
+Config.data_dir = "./data/yobo/final_simulated/cornell"
+Config.num_dataset_images = -1
+
+Config.width = 512
+Config.height = 512
+
+Config.test_width = 128
+Config.test_height = 128
+
+Config.train_render_every = 300
+
+TransientNeRFMLP.use_ambient = False
+TransientNeRFMLP.use_indirect = True
+TransientNeRFMLP.use_active = False
+TransientMaterialMLP.use_active = False
+TransientMaterialMLP.use_indirect = True
+TransientSurfaceLightFieldMLP.use_indirect = True
+TransientNeRFMLP.use_reflections = False
+Config.use_surfaces = False
+Config.n_bins = 700
+Config.exposure_time = 0.01
+Config.dataset_scale = 200
+
+TransientMaterialModel.share_material = False
+TransientMaterialModel.share_light_power = True
+TransientMaterialModel.cache_loss = 'mse'
+
+TransientNeRFMLP.stopgrad_ambient_weight = 1.0
+TransientNeRFMLP.stopgrad_indirect_weight = 1.0
+TransientNeRFMLP.stopgrad_direct_weight = 1.0
+
+TransientNeRFMLP.stopgrad_normals_weight = 1.0
+TransientNeRFMLP.stopgrad_shading_normals_weight = 1.0
+TransientMaterialMLP.stopgrad_shading_weight = 0.0
+TransientMaterialMLP.stopgrad_indirect_weight = 1.0
+TransientMaterialMLP.stopgrad_direct_weight = 0.1
+
+ProposalVolumeSampler.anneal_slope = 10.0
+ProposalVolumeSampler.anneal_clip = 0.4
+
+# losses 
+
+Config.distortion_loss_mult = 0.001 # this 
+Config.orientation_loss_mult = 0.0000 # this 
+Config.predicted_normal_loss_mult = 0.0000000 # this 
+Config.predicted_normal_reverse_loss_mult = 0.0000000 #this
+Config.material_predicted_normal_loss_mult = 0
+Config.opaque_loss_weight = 0.00 # this
+Config.empty_loss_weight = 0.000 #this

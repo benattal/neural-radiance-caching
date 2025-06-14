@@ -1,0 +1,20 @@
+NeRFMLP.surface_lf_params = {
+    'net_depth': 2,
+    'net_width': 64,
+    'skip_layer': 2,
+    'bottleneck_width': 128,
+
+    'use_directional_enc': True,
+    'use_ide': True,
+    'deg_view': 5,
+
+    'net_depth_viewdirs': 4,
+    'net_width_viewdirs': 128,
+    'skip_layer_dir': 2,
+
+    'use_grid': False,
+    'use_bottleneck': False,
+    'use_density_feature': False,
+    'use_shader_bottleneck': True,
+}
+

@@ -1,0 +1,34 @@
+include 'transient_simulation_ngp_yobo_peppers.gin'
+
+Config.use_itof = True
+Config.itof_frequency_phase_shifts = []
+Config.data_loss_mult = 0.2
+
+Config.viz_name = '0_16'
+Config.light_name = '0_16'
+
+TransientMaterialMLP.stopgrad_shading_weight = 0.01
+TransientMaterialMLP.stopgrad_cache_weight = (10000.0, 0.000001)
+
+# Sampling and contraction
+TransientMaterialModel.cache_loss = 'rawnerf_transient_itof'
+TransientMaterialModel.loss = 'rawnerf_transient_itof_unbiased'
+Config.cache_consistency_loss_type = 'rawnerf_transient_unbiased'
+
+Config.material_smoothness_noise = 0.01
+Config.material_smoothness_weight_albedo = 0.0001
+Config.material_smoothness_weight_other = 0.0001
+
+Config.distortion_loss_mult = 0.0001
+Config.orientation_loss_mult = 0.0001
+Config.predicted_normal_loss_mult = 0.001
+Config.predicted_normal_reverse_loss_mult = 0.0025
+Config.material_predicted_normal_loss_mult = 0
+Config.opaque_loss_weight = 0.1
+Config.empty_loss_weight = 0.1
+
+Config.use_geometry_smoothness = True
+Config.geometry_smoothness_noise = 0.1
+Config.geometry_smoothness_weight_normals = 0.0008
+Config.geometry_smoothness_weight_normals_pred = 0.0
+Config.geometry_smoothness_weight_density = 0.0

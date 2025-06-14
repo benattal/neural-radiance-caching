@@ -1,0 +1,7 @@
+include 'open_ngp_yobo.gin'
+
+Config.data_dir = "~/data/openillum/lighting_patterns/obj_35_transparent_plastic_cup/output"
+
+
+
+

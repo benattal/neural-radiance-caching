@@ -1,0 +1,8 @@
+include 'transient_simulation_ngp_yobo_kitchen.gin'
+
+
+Config.itof_frequency_phase_shifts = [ [30000000, 0.0], [30000000, 3.14159265359], [170000000, 0.0], [170000000, 3.14159265359] ]
+Config.use_itof = True
+TransientMaterialModel.cache_loss = 'rawnerf_transient_itof'
+TransientMaterialModel.loss = 'rawnerf_transient_itof_unbiased'
+Config.cache_consistency_loss_type = 'rawnerf_transient_unbiased'

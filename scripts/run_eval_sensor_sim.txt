@@ -1,0 +1,4 @@
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene spheres_itof --stage material_light_from_scratch_resample --sample_render_factor 4 --vis_start 0 --vis_end 1 --render_repeats 128
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene house_steady_state --stage material_light_from_scratch_resample --sample_render_factor 4 --vis_start 7 --vis_end 8 --render_repeats 128
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene spheres_itof --stage material_light_resample_finetune --sample_render_factor 4
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene house_steady_state --stage material_light_resample_finetune --sample_render_factor 4

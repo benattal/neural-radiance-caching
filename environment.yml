@@ -1,0 +1,34 @@
+name: yobo
+channels:
+  - pyg
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - cudatoolkit=11.8
+  - cudatoolkit-dev
+  - jax
+  - flax
+  - jaxlib=0.4.16
+  - cudnn
+  - openexr
+  - openexr-python
+  - ipykernel
+  - matplotlib
+  - python=3.11
+  - pip
+  - tensorflow
+  - tensorflow-hub
+  - huggingface_hub
+  - numpy=1.26.0
+  - pip:
+    - dm_pix
+    - gdown
+    - gin-config
+    - jmp
+    - mediapy
+    - ml_collections
+    - opencv-python
+    - rawpy
+    - tensorflow_graphics
+    - trimesh

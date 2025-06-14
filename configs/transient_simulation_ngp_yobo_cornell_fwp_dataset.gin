@@ -1,0 +1,26 @@
+include 'transient_simulation_ngp_yobo_cornell.gin'
+Config.data_dir = "./data/yobo/cornell"
+
+Config.width = 512
+Config.height = 512
+
+Config.test_width = 128
+Config.test_height = 128
+
+
+TransientNeRFMLP.use_ambient = False
+TransientNeRFMLP.use_indirect = True
+TransientNeRFMLP.use_active = False
+TransientMaterialMLP.use_active = False
+TransientMaterialMLP.use_indirect = True
+TransientSurfaceLightFieldMLP.use_indirect = True
+TransientNeRFMLP.use_reflections = False
+Config.use_surfaces = True
+
+Config.orientation_loss_mult = 0
+Config.predicted_normal_loss_mult = 0
+Config.predicted_normal_reverse_loss_mult = 0
+Config.material_predicted_normal_loss_mult = 0
+Config.opaque_loss_weight = 0
+Config.empty_loss_weight = 0
+

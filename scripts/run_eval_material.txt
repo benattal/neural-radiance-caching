@@ -1,0 +1,14 @@
+CUDA_VISIBLE_DEVICES=7 bash scripts/eval_dgp.sh --scene peppers --stage material_light_from_scratch_resample --take_stage material_light_from_scratch_resample --sample_render_factor 1 --eval_path
+
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene peppers --stage material_light_from_scratch_resample --take_stage material_light_from_scratch_resample --sample_render_factor 1 --render_repeats 32 --vis_start 29 --vis_end 30 --vis_extra
+
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene globe --stage material_light_from_scratch_resample --sample_render_factor 1 --vis_extra
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene spheres --stage material_light_from_scratch_resample --sample_render_factor 1 --vis_extra
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene house --stage material_light_from_scratch_resample --sample_render_factor 1 --vis_extra
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene statue --stage material_light_from_scratch_resample --sample_render_factor 1 --vis_extra
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene cornell --stage material_light_from_scratch_resample --sample_render_factor 1 --vis_extra
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene pots --stage material_light_from_scratch_resample --sample_render_factor 1 --vis_extra
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene peppers --stage material_light_from_scratch_resample --sample_render_factor 1 --vis_extra
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene kitchen --stage material_light_from_scratch_resample --sample_render_factor 1 --vis_extra
+
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene peppers --stage cache --take_stage material_light_from_scratch_resample --sample_render_factor 1 --render_repeats 1 --vis_start 29 --vis_end 30 --vis_extra

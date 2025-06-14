@@ -1,0 +1,8 @@
+include 'transient_simulation_ngp_yobo_cornell.gin'
+
+
+Config.itof_frequency_phase_shifts = [ [75000000, 0.0], [75000000, 3.14159265359], [425000000, 0.0], [425000000, 3.14159265359] ]
+Config.use_itof = True
+TransientMaterialModel.cache_loss = 'rawnerf_transient_itof'
+TransientMaterialModel.loss = 'rawnerf_transient_itof_unbiased'
+Config.cache_consistency_loss_type = 'rawnerf_transient_unbiased'

@@ -1,0 +1,542 @@
+include 'ngp_yobo.gin'
+
+Config.dataset_loader = 'blender'
+Config.num_dataset_images = -1
+Config.factor = 0
+
+Config.meshfile = ""
+Config.use_mesh_face_normals = True
+
+Config.use_exrs = False
+Config.linear_to_srgb = False
+
+Config.compute_albedo_metrics = True
+Config.compute_normal_metrics = True
+
+# Sampling and contraction
+Config.near = 2
+Config.far = 6
+Config.secondary_far = 2
+
+DensityMLP.backfacing_near = 1e-1
+MaterialMLP.near_max = 5e-2
+MaterialMLP.near_min = 5e-2
+MaterialMLP.near_rate = 0.1
+Config.surface_light_field_loss_near = 5e-2
+MaterialMLP.shadow_eps_indirect = False
+
+Config.env_map_distance = 2.0
+NeRFModel.env_map_near = 2.0
+NeRFModel.env_map_far = 6.0
+
+NeRFModel.surface_lf_mem_distance_near = 5e-2
+NeRFModel.surface_lf_mem_distance_far = 2.0
+
+NeRFMLP.surface_lf_distance_near = 5e-2
+NeRFMLP.surface_lf_distance_far = 2.0
+
+DensityMLP.warp_fn = @coord.contract_radius_2
+NeRFMLP.warp_fn = @coord.contract_radius_2
+SurfaceLightFieldMLP.warp_fn = @coord.contract_radius_2
+SurfaceLightFieldMLP.ref_warp_fn = @coord.contract_radius_2
+LightMLP.warp_fn = @coord.contract_radius_2
+MaterialMLP.warp_fn = @coord.contract_radius_2
+HashEncoding.bbox_scaling = 1.0
+
+# Regularizers
+Config.param_regularizers = {
+    'density_grid': (0.1, @jnp.mean, 2, 1),
+    'light_grid': (0.1, @jnp.mean, 2, 1),
+    'material_grid': (0.1, @jnp.mean, 2, 1),
+}
+Config.material_ray_sampler_interlevel_loss_mult = 0.0
+Config.material_ray_sampler_normal_loss_mult = 0.0
+Config.no_material_regularizers = True
+
+# Normal losses
+DensityMLP.disable_density_normals = True
+DensityMLP.enable_pred_normals = True
+Config.predicted_normal_loss_stopgrad = False
+Config.predicted_normal_loss_stopgrad_weight = 0.1
+
+Config.interlevel_loss_mults = (0.01, 0.01)
+Config.material_interlevel_loss_mults = (0.0, 0.0)
+Config.interlevel_loss_blurs = (0.03, 0.003)
+
+Config.distortion_loss_mult = 0.0
+
+Config.orientation_loss_mult = 0.0
+Config.orientation_loss_target = 'normals_pred'
+
+Config.predicted_normal_loss_mult = 0.1
+Config.predicted_normal_reverse_loss_mult = 0.1
+Config.material_predicted_normal_loss_mult = 1.0
+
+Config.use_normal_weight_ease = True
+Config.use_normal_weight_ease_backward = True
+
+Config.normal_weight_ease_frac = 0.2
+Config.normal_weight_ease_start = 0.2
+Config.normal_weight_ease_min = 0.001
+
+NeRFMLP.stopgrad_normals_weight = 0.25
+
+MaterialMLP.normals_target = 'normals_to_use'
+Config.material_normals_target = 'normals_to_use'
+Config.shadow_normals_target = 'normals_to_use'
+LightMLP.normals_target = 'normals_to_use'
+NeRFMLP.normals_target = 'normals_to_use'
+
+# Secondary ray casting
+MaterialModel.slf_variate = True
+
+# Sampling
+NeRFModel.use_raydist_for_secondary_only = True
+
+# Surface light field
+NeRFModel.surface_lf_mem_params = {
+    'net_depth': 2,
+    'net_width': 64,
+    'skip_layer': 2,
+    'bottleneck_width': 128,
+
+    'use_directional_enc': False,
+    'use_ide': False,
+    'deg_view': 2,
+
+    'net_depth_viewdirs': 2,
+    'net_width_viewdirs': 64,
+    'skip_layer_dir': 2,
+
+    'use_distance_prediction': True,
+    'use_distance_ide': False,
+    'deg_view_distance': 2,
+    'net_depth_distance': 4,
+    'net_width_distance': 128,
+    'skip_layer_distance': 2,
+
+    'use_origins': False,
+    'deg_origins': 2,
+
+    'num_distance_samples': 8,
+    'distance_scale': 1.0,
+
+    'use_uniform_distance': False,
+    'use_uniform_loss': False,
+
+    'use_voxel_grid': False,
+    'use_uniform_grid': True,
+    'voxel_start': 0.0,
+    'voxel_end': 10.0,
+    
+    'use_point_offsets': False,
+    'point_offset_scale': 0.25,
+    'point_offset_bias': -3.0,
+
+    'use_far_field_points': False,
+    'use_points': False,
+    'use_points_ide': True,
+    'deg_points': 5,
+
+    'use_reflectance_grid': True,
+    'reflectance_grid_representation': 'ngp',
+    'reflectance_grid_params': {
+        'hash_map_size': 524288,
+        'max_grid_size': 256,
+        'num_features': 4,
+        'bbox_scaling': 2.0,
+    },
+    'per_ref_feature_output': False,
+
+    'use_grid': True,
+    'grid_representation': 'ngp',
+    'grid_params': {
+        'hash_map_size': 524288,
+        'max_grid_size': 256,
+        'num_features': 4,
+    },
+    'use_roughness': False,
+
+    'use_bottleneck': False,
+    'use_density_feature': False,
+    'use_shader_bottleneck': False,
+}
+
+NeRFMLP.surface_lf_params = {
+    'net_depth': 2,
+    'net_width': 64,
+    'skip_layer': 2,
+    'bottleneck_width': 128,
+
+    'use_directional_enc': False,
+    'use_ide': False,
+    'deg_view': 2,
+
+    'net_depth_viewdirs': 2,
+    'net_width_viewdirs': 64,
+    'skip_layer_dir': 2,
+
+    'use_distance_prediction': True,
+    'use_distance_ide': False,
+    'deg_view_distance': 2,
+    'net_depth_distance': 4,
+    'net_width_distance': 128,
+    'skip_layer_distance': 2,
+
+    'use_origins': True,
+    'deg_origins': 4,
+
+    'num_distance_samples': 8,
+
+    'use_uniform_distance': False,
+    'use_uniform_loss': False,
+
+    'use_voxel_grid': False,
+    'use_uniform_grid': True,
+    'voxel_start': 0.0,
+    'voxel_end': 10.0,
+    
+    'use_point_offsets': False,
+    'point_offset_scale': 0.25,
+    'point_offset_bias': -3.0,
+
+    'use_far_field_points': False,
+    'use_points': False,
+    'use_points_ide': True,
+    'deg_points': 5,
+
+    'use_reflectance_grid': True,
+    'reflectance_grid_representation': 'ngp',
+    'reflectance_grid_params': {
+        'hash_map_size': 524288,
+        'max_grid_size': 256,
+        'num_features': 4,
+        'bbox_scaling': 2.0,
+    },
+    'per_ref_feature_output': False,
+
+    'use_grid': True,
+    'grid_representation': 'ngp',
+    'grid_params': {
+        'hash_map_size': 524288,
+        'max_grid_size': 256,
+        'num_features': 4,
+    },
+    'use_roughness': False,
+
+    'use_bottleneck': False,
+    'use_density_feature': False,
+    'use_shader_bottleneck': False,
+}
+
+NeRFModel.env_map_params = {
+    'rgb_bias': -1.0,
+    'rgb_activation': @jax.nn.softplus,
+    
+    'net_depth': 2,
+    'net_width': 64,
+    'skip_layer': 2,
+    'bottleneck_width': 128,
+
+    'use_origins': False,
+    'deg_origins': 4,
+
+    'use_sphere_points': False,
+    'sphere_radius': 5.0,
+    'deg_sphere_points': 2,
+
+    'use_directional_enc': True,
+    'use_ide': False,
+    'deg_view': 4,
+
+    'net_depth_viewdirs': 4,
+    'net_width_viewdirs': 256,
+    'skip_layer_dir': 2,
+
+    'use_far_field_points': True,
+    'use_distance_prediction': False,
+
+    'use_reflectance_grid': False,
+    'reflectance_grid_representation': 'ngp',
+    'reflectance_grid_params': {
+        'hash_map_size': 524288,
+        'max_grid_size': 256,
+        'num_features': 4,
+        'bbox_scaling': 2.0,
+    },
+    'per_ref_feature_output': False,
+
+    'use_grid': False,
+    'use_bottleneck': False,
+    'use_density_feature': False,
+    'use_shader_bottleneck': False,
+    
+    'multiple_illumination_outputs': True,
+    'rotate_illumination': True,
+}
+
+NeRFMLP.env_map_params = {
+    'rgb_bias': -1.0,
+    'rgb_activation': @jax.nn.softplus,
+    
+    'net_depth': 2,
+    'net_width': 64,
+    'skip_layer': 2,
+    'bottleneck_width': 128,
+
+    'use_origins': False,
+    'deg_origins': 4,
+
+    'use_sphere_points': False,
+    'sphere_radius': 5.0,
+    'deg_sphere_points': 2,
+
+    'use_directional_enc': True,
+    'use_ide': True,
+    'deg_view': 4,
+
+    'net_depth_viewdirs': 4,
+    'net_width_viewdirs': 128,
+    'skip_layer_dir': 2,
+
+    'use_far_field_points': False,
+    'use_distance_prediction': False,
+
+    'use_reflectance_grid': False,
+    'reflectance_grid_representation': 'ngp',
+    'reflectance_grid_params': {
+        'hash_map_size': 524288,
+        'max_grid_size': 256,
+        'num_features': 4,
+        'bbox_scaling': 2.0,
+    },
+    'per_ref_feature_output': False,
+
+    'use_grid': False,
+    'use_bottleneck': False,
+    'use_density_feature': False,
+    'use_shader_bottleneck': False,
+    
+    'multiple_illumination_outputs': True,
+    'rotate_illumination': True,
+}
+
+Config.num_illuminations = 3
+Config.use_ground_truth_illumination = False
+EnvironmentSampler.samples_to_take = 1024
+Config.light_rotations = [0.0, 120.0, 240.0]
+
+NeRFMLP.num_light_features = 64
+MaterialMLP.num_light_features = 64
+LightMLP.num_light_features = 64
+SurfaceLightFieldMLP.num_light_features = 64
+
+NeRFMLP.use_illumination_feature = False
+MaterialMLP.use_illumination_feature = False
+LightMLP.use_illumination_feature = False
+SurfaceLightFieldMLP.use_illumination_feature = False
+
+NeRFMLP.multiple_illumination_outputs = True
+MaterialMLP.multiple_illumination_outputs = True
+LightMLP.multiple_illumination_outputs = True
+SurfaceLightFieldMLP.multiple_illumination_outputs = True
+
+# Integrator
+VolumeIntegrator.bg_intensity_range = (1, 1)
+Config.opaque_loss_weight = 1.0
+Config.empty_loss_weight = 1.0
+Config.mask_lossmult = False
+Config.mask_lossmult_weight = 0.0
+Config.evaluate_without_masks = True
+Config.clip_eval = True
+DensityMLP.density_bias = -1.0
+
+Config.backward_mask_loss_weight = 0.1
+Config.backward_mask_loss = True
+
+# Env map
+NeRFModel.use_env_map = True
+NeRFMLP.use_env_map = True
+MaterialMLP.use_env_map = True
+
+# Other
+MaterialMLP.use_irradiance_cache = True
+
+MaterialMLP.irradiance_cache_weight = 0.0
+MaterialMLP.irradiance_cache_decay_rate = 0.25
+
+Config.irradiance_cache_loss_weight = 1.0
+Config.irradiance_cache_color_loss_weight = 0.0
+Config.whitening_loss_weight = 0.0
+
+Config.irradiance_cache_stopgrad_weight = 0.0
+Config.irradiance_cache_stopgrad_weight_backwards = 1.0
+
+Config.material_correlation_weight_albedo = 0.0
+Config.material_correlation_weight_other = 0.0
+
+# Smoothness
+Config.material_smoothness_l1_loss = True
+Config.material_smoothness_tensoir_albedo = True
+Config.material_smoothness_noise = 0.01
+Config.material_smoothness_weight_albedo = 0.0001
+Config.material_smoothness_weight_other = 0.0001
+
+Config.material_smoothness_base = 0.1
+Config.material_smoothness_irradiance_multiplier = 4.0
+Config.material_smoothness_irradiance_weight = False
+
+Config.use_geometry_smoothness = False
+Config.geometry_smoothness_noise = 0.01
+Config.geometry_smoothness_weight_normals = 0.01
+Config.geometry_smoothness_weight_normals_pred = 0.0
+Config.geometry_smoothness_weight_density = 0.0
+
+# Stopgrads
+MaterialMLP.stopgrad_shading_weight = 1e-2
+MaterialMLP.stopgrad_cache_weight = (1e2, 1e-4)
+MaterialMLP.stopgrad_slf_weight = (1e2, 1e-4)
+MaterialMLP.stopgrad_env_map_weight = (1e-2, 1)
+
+MaterialMLP.stopgrad_rays = False
+MaterialMLP.stopgrad_samples = False
+MaterialMLP.stopgrad_rgb = False
+
+# Extra ray / consistency losses
+MaterialModel.loss = 'rawnerf_transient_unbiased'
+MaterialModel.loss_weight = 0.1
+
+MaterialModel.cache_loss = 'charb'
+MaterialModel.cache_linear_to_srgb = True
+
+Config.cache_consistency_loss_type = 'rawnerf_transient_unbiased'
+Config.cache_consistency_loss_weight = 0.1
+
+Config.rawnerf_exponent = 1
+Config.rawnerf_exponent_material = 1
+
+Config.rawnerf_eps = 1e-2
+Config.rawnerf_eps_material = 1e-2
+
+Config.lr_factor = 1.0
+
+NeRFModel.resample = False
+NeRFModel.resample_secondary = True
+NeRFModel.resample_render = False
+
+NeRFModel.stopgrad_weight_variate = 1.0
+NeRFModel.stopgrad_weight_model = 1.0
+NeRFModel.stopgrad_geometry_weight = 1.0
+
+MaterialModel.stopgrad_weight_variate = 0.0
+MaterialModel.stopgrad_weight_model = 1.0
+MaterialModel.stopgrad_geometry_weight = 0.0
+
+Config.cache_consistency_loss_mode = 'shader'
+Config.cache_consistency_use_integrated = False
+Config.cache_consistency_loss_weight = 1.0
+Config.cache_consistency_stopgrad_weight_cache = 1.0
+
+Config.volume_variate = False
+Config.volume_variate_material = False
+Config.volume_variate_secondary = False
+Config.volume_variate_passes = []
+Config.volume_variate_passes_secondary = ["diffuse"]
+
+Config.extra_ray_regularizer = False
+Config.extra_ray_light_shuffle = True
+Config.extra_ray_type = 'incoming'
+
+# Loss radius
+Config.surface_light_field_importance_sample_weights = False
+Config.surface_light_field_loss_radius = 2.0
+Config.surface_light_field_stopgrad_weight_forward = 0.0
+Config.material_loss_radius = 2.0
+Config.emission_radius = 2.0
+
+NeRFMLP.rgb_max = 10000.0
+MaterialMLP.rgb_max = 10000.0
+
+# RGB Activation
+MaterialModel.share_material = False
+MaterialModel.share_light_power = True
+
+NeRFMLP.optimize_light = False
+MaterialMLP.optimize_light = False
+
+NeRFMLP.light_power_activation = @math.abs
+MaterialMLP.light_power_activation = @math.abs
+
+NeRFMLP.irradiance_activation = @jax.nn.softplus
+NeRFMLP.irradiance_bias = -2.0
+
+NeRFMLP.ambient_irradiance_activation = @jax.nn.softplus
+NeRFMLP.ambient_irradiance_bias = -2.0
+
+NeRFMLP.albedo_activation = @jax.nn.sigmoid
+NeRFMLP.albedo_bias = -1.0
+
+NeRFMLP.rgb_activation = @jax.nn.softplus
+NeRFMLP.rgb_bias_diffuse = -1.0
+
+SurfaceLightFieldMLP.use_lights = False
+
+SurfaceLightFieldMLP.rgb_activation = @jax.nn.softplus
+SurfaceLightFieldMLP.rgb_bias = -2.0
+
+SurfaceLightFieldMLP.ambient_rgb_activation = @jax.nn.softplus
+SurfaceLightFieldMLP.ambient_rgb_bias = -1.0
+
+MaterialMLP.use_active = False
+NeRFMLP.use_ambient = True
+NeRFMLP.use_indirect = False
+NeRFMLP.use_active = False
+
+Config.stopgrad_cache_geometry = True
+Config.stopgrad_cache_geometry_weight = 1.0
+Config.stopgrad_cache_geometry_feature_weight = 1.0
+Config.stopgrad_cache_geometry_normals_weight = 1.0
+
+ProposalVolumeSampler.sampling_strategy = (
+    (0, 0, 64),
+    (1, 1, 64),
+    (2, 2, 32),
+)
+NeRFModel.train_sampling_strategy = (
+    (0, 0, 64),
+    (1, 1, 64),
+    (2, 2, 32),
+)
+NeRFModel.render_sampling_strategy = (
+    (0, 0, 64),
+    (1, 1, 64),
+    (2, 2, 32),
+)
+MaterialMLP.cache_train_sampling_strategy = (
+    (0, 0, 64),
+    (1, 1, 64),
+    (2, 2, 32),
+)
+MaterialMLP.cache_render_sampling_strategy = (
+    (0, 0, 64),
+    (1, 1, 64),
+    (2, 2, 32),
+)
+
+ProposalVolumeSampler.grid_params_per_level = (
+    {
+        'hash_map_size': 524288,
+        'max_grid_size': 512,
+        'num_features': 1,
+    },
+    {
+        'hash_map_size': 524288,
+        'max_grid_size': 1024,
+        'num_features': 1,
+    },
+    {
+        'hash_map_size': 524288,
+        'max_grid_size': 2048,
+        'num_features': 4,
+    },
+)

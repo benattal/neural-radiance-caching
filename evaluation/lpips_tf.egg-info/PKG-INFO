@@ -1,0 +1,12 @@
+Metadata-Version: 2.1
+Name: lpips-tf
+Version: 0.0.0
+Summary: Tensorflow port for the Learned Perceptual Image Patch Similarity (LPIPS) metric
+Home-page: https://github.com/alexlee-gk/lpips-tensorflow/
+Author: Alex Lee
+License: UNKNOWN
+Platform: UNKNOWN
+License-File: LICENSE
+
+UNKNOWN
+

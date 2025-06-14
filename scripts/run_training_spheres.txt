@@ -1,0 +1,3 @@
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene spheres_tnerf --stage cache --batch_size 4096 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene spheres --stage cache --batch_size 4096 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene spheres --stage material_light_from_scratch_resample --batch_size 1024 --grad_accum_steps 4 --sample_factor 4 --sample_render_factor 4 --early_exit_steps 100000

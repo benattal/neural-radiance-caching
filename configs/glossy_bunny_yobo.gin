@@ -1,0 +1,93 @@
+include 'blender_ngp_yobo.gin'
+
+Config.dataset_loader = 'glossy_real'
+Config.num_dataset_images = -1
+Config.data_dir = "~/data/GlossyReal/bunny"
+
+Config.meshfile = ""
+Config.use_mesh_face_normals = True
+
+# Surface light field
+NeRFMLP.surface_lf_params = {
+    'net_depth': 2,
+    'net_width': 64,
+    'skip_layer': 2,
+    'bottleneck_width': 128,
+
+    'use_directional_enc': True,
+    'use_ide': True,
+    'deg_view': 5,
+
+    'net_depth_viewdirs': 4,
+    'net_width_viewdirs': 128,
+    'skip_layer_dir': 2,
+
+    'use_grid': False,
+    'use_bottleneck': False,
+    'use_density_feature': False,
+    'use_shader_bottleneck': True,
+}
+
+# Integrator
+VolumeIntegrator.bg_intensity_range = (0, 1)
+
+# Sampling and contraction
+Config.near = 1e-3
+Config.far = 20.0
+Config.secondary_far = 20.0
+
+NeRFMLP.surface_lf_distance_near = 2.0
+NeRFMLP.surface_lf_distance_far = 20.0
+
+Config.env_map_distance = 2.0
+NeRFModel.env_map_near = 2.0
+NeRFModel.env_map_far = 20.0
+
+DensityMLP.warp_fn = @coord.contract
+NeRFMLP.warp_fn = @coord.contract
+SurfaceLightFieldMLP.warp_fn = @coord.contract
+SurfaceLightFieldMLP.ref_warp_fn = @coord.contract_cube
+LightMLP.warp_fn = @coord.contract
+MaterialMLP.warp_fn = @coord.contract
+HashEncoding.bbox_scaling = 2.0
+
+# Normals
+DensityMLP.disable_density_normals = True
+DensityMLP.enable_pred_normals = True
+
+Config.orientation_loss_mult = 0.01
+Config.orientation_loss_target = 'normals_pred'
+
+Config.predicted_normal_loss_mult = 0.01
+Config.predicted_normal_reverse_loss_mult = 0.05
+
+# Material MLP
+MaterialMLP.normals_target = 'normals_to_use'
+Config.material_normals_target = 'normals_to_use'
+
+# Other
+NeRFMLP.use_separate_surface_lfs = True
+NeRFMLP.use_person_lfs = True
+MaterialMLP.use_irradiance_cache = True
+
+MaterialMLP.irradiance_cache_weight = 0.1
+MaterialMLP.irradiance_cache_decay_rate = 0.25
+
+Config.irradiance_cache_loss_weight = 1.0
+Config.irradiance_cache_color_loss_weight = 1.0
+Config.whitening_loss_weight = 0.1
+
+Config.irradiance_cache_stopgrad_weight = 1.0
+Config.irradiance_cache_stopgrad_weight_backwards = 1.0
+
+Config.material_correlation_weight_albedo = 0.1
+Config.material_correlation_weight_other = 0.1
+
+Config.material_smoothness_noise = 0.01
+Config.material_smoothness_weight_albedo = 0.1
+Config.material_smoothness_weight_other = 0.1
+Config.material_smoothness_base = 1.0
+Config.material_smoothness_irradiance_multiplier = 0.0
+
+Config.surface_light_field_loss_radius = 2.0
+Config.material_loss_radius = 2.0

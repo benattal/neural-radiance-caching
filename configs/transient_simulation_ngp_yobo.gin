@@ -1,0 +1,354 @@
+include 'transient_ngp_yobo.gin'
+
+Config.dataset_loader = 'transient_simulation'
+Config.factor = 0
+Config.max_steps = 6250
+Config.meshfile = ""
+Config.use_mesh_face_normals = False
+
+Config.use_exrs = False
+Config.linear_to_srgb = False
+
+# Sampling and contraction
+Config.near = 0.7
+Config.far = 4
+Config.secondary_far = 1
+
+Config.shadow_near_min = 5e-2
+Config.shadow_near_max = 5e-2
+Config.shadow_normal_eps_rate = 0.0
+Config.shadow_normal_eps_dot_min = 1e-1
+Config.shadow_sampling_strategy = (
+    (0, 0, 32),
+    (1, 1, 32),
+    (2, 2, 16),
+)
+
+DensityMLP.backfacing_near = 5e-2
+TransientMaterialMLP.near_max = 5e-2
+TransientMaterialMLP.near_min = 5e-2
+TransientMaterialMLP.near_rate = 0.1
+Config.surface_light_field_loss_near = 5e-2
+
+TransientNeRFMLP.surface_lf_distance_near = 2.0
+TransientNeRFMLP.surface_lf_distance_far = 20.0
+
+DensityMLP.backfacing_near = 1e-1
+TransientMaterialMLP.near_max = 5e-2
+TransientMaterialMLP.near_min = 5e-2
+TransientMaterialMLP.near_rate = 0.1
+Config.surface_light_field_loss_near = 5e-2
+
+TransientNeRFMLP.surface_lf_distance_near = 5e-2
+TransientNeRFMLP.surface_lf_distance_far = 20.0
+
+DensityMLP.warp_fn = @coord.contract_radius_2
+TransientNeRFMLP.warp_fn = @coord.contract_radius_2
+TransientSurfaceLightFieldMLP.warp_fn = @coord.contract_radius_2
+TransientSurfaceLightFieldMLP.ref_warp_fn = @coord.contract_radius_2
+LightMLP.warp_fn = @coord.contract_radius_2
+TransientMaterialMLP.warp_fn = @coord.contract_radius_2
+HashEncoding.bbox_scaling = 2.0
+
+# Regularizers
+Config.param_regularizers = {
+    'density_grid': (1.0, @jnp.mean, 2, 1),
+    'appearance_grid': (1.0, @jnp.mean, 2, 1),
+    'material_grid': (1.0, @jnp.mean, 2, 1),
+}
+Config.no_material_regularizers = True
+
+# Normal losses
+DensityMLP.disable_density_normals = True
+DensityMLP.enable_pred_normals = True
+Config.predicted_normal_loss_stopgrad = False
+Config.predicted_normal_loss_stopgrad_weight = 1.0
+
+Config.interlevel_loss_mults = (0.01, 0.01)
+Config.material_interlevel_loss_mults = (0.0, 0.0)
+Config.interlevel_loss_blurs = (0.03, 0.003)
+
+Config.orientation_loss_target = 'normals_pred'
+
+Config.use_normal_weight_ease = False
+Config.use_normal_weight_ease_backward = False
+
+Config.normal_weight_ease_frac = 0.0
+Config.normal_weight_ease_start = 0.0
+Config.normal_weight_ease_min = 0.01
+
+TransientMaterialMLP.normals_target = 'normals_to_use'
+Config.material_normals_target = 'normals_to_use'
+LightMLP.normals_target = 'normals_to_use'
+TransientNeRFMLP.normals_target = 'normals_to_use'
+
+Config.use_geometry_smoothness = False
+Config.geometry_smoothness_noise = 0.1
+Config.geometry_smoothness_weight_normals = 0.005
+Config.geometry_smoothness_weight_normals_pred = 0.0
+Config.geometry_smoothness_weight_density = 0.0
+
+# Secondary ray casting
+TransientMaterialModel.slf_variate = True
+
+# Sampling
+NeRFModel.use_raydist_for_secondary_only = False
+
+# Surface light field
+TransientNeRFMLP.surface_lf_params = {
+    'net_depth': 2,
+    'net_width': 64,
+    'skip_layer': 2,
+    'bottleneck_width': 128,
+
+    'use_directional_enc': False,
+    'use_ide': False,
+    'deg_view': 2,
+
+    'net_depth_viewdirs': 2,
+    'net_width_viewdirs': 64,
+    'bottleneck_viewdirs': 64,
+    'skip_layer_dir': 2,
+
+    'use_distance_prediction': True,
+    'use_distance_ide': False,
+    'deg_view_distance': 2,
+    'net_depth_distance': 4,
+    'net_width_distance': 128,
+    'skip_layer_distance': 2,
+
+    'use_origins': True,
+    'deg_origins': 4,
+
+    'num_distance_samples': 8,
+
+    'use_uniform_distance': False,
+    'use_uniform_loss': False,
+
+    'use_voxel_grid': False,
+    'use_uniform_grid': True,
+    'voxel_start': 0.0,
+    'voxel_end': 10.0,
+    
+    'use_point_offsets': False,
+    'point_offset_scale': 0.25,
+    'point_offset_bias': -3.0,
+
+    'use_far_field_points': False,
+    'use_points': False,
+    'use_points_ide': True,
+    'deg_points': 5,
+
+    'use_reflectance_grid': True,
+    'reflectance_grid_representation': 'ngp',
+    'reflectance_grid_params': {
+        'hash_map_size': 524288,
+        'max_grid_size': 256,
+        'num_features': 4,
+        'bbox_scaling': 2.0,
+    },
+    'per_ref_feature_output': False,
+
+    'use_grid': True,
+    'grid_representation': 'ngp',
+    'grid_params': {
+        'hash_map_size': 524288,
+        'max_grid_size': 256,
+        'num_features': 4,
+    },
+    'use_roughness': False,
+
+    'use_bottleneck': False,
+    'use_density_feature': False,
+    'use_shader_bottleneck': False,
+}
+
+TransientNeRFMLP.surface_lf_params = {
+    'net_depth': 2,
+    'net_width': 64,
+    'skip_layer': 2,
+    'bottleneck_width': 128,
+
+    'use_directional_enc': True,
+    'use_ide': True,
+    'deg_view': 5,
+
+    'net_depth_viewdirs': 4,
+    'net_width_viewdirs': 128,
+    'bottleneck_viewdirs': 128,
+    'skip_layer_dir': 2,
+
+    'use_grid': False,
+    'use_bottleneck': False,
+    'use_density_feature': False,
+    'use_shader_bottleneck': True,
+}
+
+TransientNeRFModel.env_map_params = {
+    'rgb_bias': -1.0,
+    'rgb_activation': @jax.nn.softplus,
+
+    'net_depth': 2,
+    'net_width': 64,
+    'skip_layer': 2,
+    'bottleneck_width': 128,
+
+    'use_sphere_points': True,
+    'sphere_radius': 5.0,
+    'deg_sphere_points': 2,
+
+    'use_directional_enc': True,
+    'use_ide': False,
+    'deg_view': 4,
+
+    'net_depth_viewdirs': 4,
+    'net_width_viewdirs': 256,
+    'skip_layer_dir': 2,
+
+    'use_grid': False,
+    'use_bottleneck': False,
+    'use_density_feature': False,
+    'use_shader_bottleneck': False,
+}
+
+TransientNeRFMLP.use_illumination_feature = True
+TransientMaterialMLP.use_illumination_feature = True
+LightMLP.use_illumination_feature = True
+TransientSurfaceLightFieldMLP.use_illumination_feature = True
+
+# Integrator
+VolumeIntegrator.bg_intensity_range = (0, 0)
+Config.mask_lossmult = False
+Config.mask_lossmult_weight = 0.0
+Config.evaluate_without_masks = True
+Config.clip_eval = False
+DensityMLP.density_bias = -1.0
+
+# Other
+TransientMaterialMLP.use_irradiance_cache = True
+
+TransientMaterialMLP.irradiance_cache_weight = 0.0
+TransientMaterialMLP.irradiance_cache_decay_rate = 0.25
+
+Config.irradiance_cache_loss_weight = 1.0
+Config.irradiance_cache_color_loss_weight = 0.0
+Config.whitening_loss_weight = 0.0
+
+Config.irradiance_cache_stopgrad_weight = 0.0
+Config.irradiance_cache_stopgrad_weight_backwards = 1.0
+
+Config.material_correlation_weight_albedo = 0.0
+Config.material_correlation_weight_other = 0.0
+
+# Smoothness losses
+Config.material_smoothness_l1_loss = True
+Config.material_smoothness_tensoir_albedo = True
+Config.material_smoothness_noise = 0.0002
+Config.material_smoothness_weight_albedo = 0.0001
+Config.material_smoothness_weight_other = 0.0001
+
+Config.material_smoothness_base = 0.0
+Config.material_smoothness_irradiance_multiplier = 4.0
+Config.material_smoothness_irradiance_weight = False
+
+# Stopgrads
+TransientMaterialMLP.stopgrad_cache_weight = (0.0, 0.0) # Secondary RGB & weights
+TransientMaterialMLP.stopgrad_slf_weight = (100000.0, 0.00001) # SLF secondary RGB & weights
+TransientMaterialMLP.stopgrad_env_map_weight = (0.1, 1.0) # Secondary env RGB
+TransientMaterialModel.slf_variate = True
+
+TransientNeRFModel.stopgrad_geometry_weight = 1.0
+TransientNeRFModel.stopgrad_geometry_feature_weight = 1.0
+TransientNeRFModel.stopgrad_geometry_normals_weight = 1.0
+
+TransientMaterialModel.stopgrad_geometry_weight = 0.0
+TransientMaterialModel.stopgrad_geometry_feature_weight = 0.0
+TransientMaterialModel.stopgrad_geometry_normals_weight = 1.0
+
+Config.stopgrad_cache_geometry = True
+Config.stopgrad_cache_geometry_weight = 1.0
+Config.stopgrad_cache_geometry_feature_weight = 1.0
+Config.stopgrad_cache_geometry_normals_weight = 1.0
+
+# Extra ray / consistency losses
+Config.light_sampling_linear_to_srgb = True
+Config.surface_light_field_linear_to_srgb = True
+
+TransientMaterialModel.loss = 'mse_unbiased'
+TransientMaterialModel.loss_weight = 0.1
+
+TransientMaterialModel.cache_loss = 'mse'
+TransientMaterialModel.cache_linear_to_srgb = False
+
+Config.lr_factor = 1.0
+
+Config.extra_ray_regularizer = False
+Config.extra_ray_type = 'incoming'
+Config.cache_consistency_stopgrad_weight_material = 0.0
+Config.cache_consistency_stopgrad_weight_cache = 1.0
+
+Config.cache_consistency_loss_type = 'mse_unbiased'
+Config.cache_consistency_loss_mode = 'shader'
+Config.cache_consistency_use_integrated = True
+Config.cache_consistency_loss_weight = 1.0
+
+# Loss radius
+Config.surface_light_field_importance_sample_weights = False
+Config.surface_light_field_loss_radius = 100.0
+Config.surface_light_field_stopgrad_weight_forward = 0.0
+Config.material_loss_radius = 1000.0
+Config.emission_radius = 1000.0
+
+# RGB Activation
+TransientMaterialModel.share_material = False
+TransientMaterialModel.share_light_power = False
+TransientNeRFMLP.use_occlusions = True
+
+Config.use_occlusions = True
+
+TransientNeRFMLP.optimize_light = True
+TransientMaterialMLP.optimize_light = True
+
+TransientNeRFMLP.light_power_bias = 50.0
+TransientMaterialMLP.light_power_bias = 50.0
+
+TransientNeRFMLP.light_power_activation = @math.abs
+TransientMaterialMLP.light_power_activation = @math.abs
+
+TransientNeRFMLP.irradiance_activation = @jax.nn.softplus
+TransientNeRFMLP.irradiance_bias = -2.0
+
+TransientNeRFMLP.ambient_irradiance_activation = @jax.nn.softplus
+TransientNeRFMLP.ambient_irradiance_bias = -2.0
+
+TransientNeRFMLP.albedo_activation = @jax.nn.softplus
+TransientNeRFMLP.albedo_bias = -1.0
+
+TransientSurfaceLightFieldMLP.use_lights = True
+
+TransientSurfaceLightFieldMLP.rgb_activation = @jax.nn.softplus
+TransientSurfaceLightFieldMLP.rgb_bias = -2.0
+
+TransientSurfaceLightFieldMLP.ambient_rgb_activation = @jax.nn.softplus
+TransientSurfaceLightFieldMLP.ambient_rgb_bias = -2.0
+
+TransientMaterialMLP.use_active = True
+TransientNeRFMLP.use_ambient = True
+TransientNeRFMLP.use_indirect = True
+TransientNeRFMLP.use_active = True
+
+Config.rawnerf_exponent = 2
+Config.rawnerf_eps = 1e-5
+
+VignetteMap.deg_vignette = 2
+VignetteMap.net_depth_vignette = 4
+VignetteMap.net_width_vignette = 128
+VignetteMap.skip_layer_vignette = 4
+
+LightSourceMap.deg_points = 2
+LightSourceMap.net_depth = 4
+LightSourceMap.net_width = 128
+LightSourceMap.skip_layer = 4
+
+TransientNeRFMLP.rgb_max = 1000000
+TransientMaterialMLP.rgb_max = 1000000

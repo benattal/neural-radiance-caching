@@ -1,0 +1,3 @@
+include 'orb_ngp_yobo.gin'
+
+Config.data_dir = "~/data/blender_HDR/cactus_scene001"

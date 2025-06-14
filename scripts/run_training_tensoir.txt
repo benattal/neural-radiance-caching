@@ -1,0 +1,8 @@
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene hotdog --stage material_surface_light_field_light_from_scratch_resample --batch_size 4096 --grad_accum_steps 4 --sample_factor 2 --sample_render_factor 2 --early_exit_steps 50000 --render_chunk_size 4096 --render_repeats 4
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene lego --stage material_surface_light_field_light_from_scratch_resample --batch_size 4096 --grad_accum_steps 4 --sample_factor 2 --sample_render_factor 2 --early_exit_steps 50000 --render_chunk_size 4096 --render_repeats 4
+
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene hotdog --stage material_light_from_scratch_resample --batch_size 4096 --grad_accum_steps 4 --sample_factor 2 --sample_render_factor 2 --early_exit_steps 50000 --render_chunk_size 4096 --render_repeats 4
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene lego --stage material_light_from_scratch_resample --batch_size 4096 --grad_accum_steps 4 --sample_factor 2 --sample_render_factor 2 --early_exit_steps 50000 --render_chunk_size 4096 --render_repeats 4
+
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene ficus --stage material_light_from_scratch_resample --batch_size 4096 --grad_accum_steps 4 --sample_factor 2 --sample_render_factor 2 --early_exit_steps 50000 --render_chunk_size 4096 --render_repeats 4
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene armadillo --stage material_light_from_scratch_resample --batch_size 4096 --grad_accum_steps 4 --sample_factor 2 --sample_render_factor 2 --early_exit_steps 50000 --render_chunk_size 4096 --render_repeats 4

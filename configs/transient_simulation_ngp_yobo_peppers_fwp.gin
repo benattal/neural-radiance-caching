@@ -1,0 +1,16 @@
+include 'transient_simulation_ngp_yobo_peppers.gin'
+
+
+TransientNeRFMLP.use_ambient = False
+TransientNeRFMLP.use_indirect = True
+TransientNeRFMLP.use_active = False
+TransientMaterialMLP.use_active = False
+TransientMaterialMLP.use_indirect = True
+TransientSurfaceLightFieldMLP.use_indirect = True
+Config.use_surfaces = True
+
+
+Config.orientation_loss_mult = 0
+Config.predicted_normal_loss_mult = 0
+Config.predicted_normal_reverse_loss_mult = 0
+Config.material_predicted_normal_loss_mult = 0

@@ -1,0 +1,4 @@
+include 'open_ngp_yobo.gin'
+
+Config.data_dir = "~/data/openillum/lighting_patterns/obj_29_fabric_toy/output"
+

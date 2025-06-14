@@ -1,0 +1,61 @@
+include 'blender_ngp_yobo.gin'
+
+Config.dataset_loader = 'fipt_synthetic'
+Config.num_dataset_images = -1
+Config.data_dir = "~/data/fipt/indoor_synthetic_release/kitchen"
+
+Config.meshfile = ""
+Config.use_mesh_face_normals = True
+
+# Integrator
+VolumeIntegrator.bg_intensity_range = (0, 1)
+
+# Sampling and contraction
+Config.near = 1e-3
+Config.far = 1e6
+
+DensityMLP.warp_fn = @coord.contract
+NeRFMLP.warp_fn = @coord.contract
+SurfaceLightFieldMLP.warp_fn = @coord.contract
+LightMLP.warp_fn = @coord.contract
+MaterialMLP.warp_fn = @coord.contract
+HashEncoding.bbox_scaling = 2.0
+
+# Loss
+Config.data_loss_type = 'rawnerf_unbiased'
+Config.data_coarse_loss_mult = 1.0
+
+MaterialModel.loss_weight = 1.0
+MaterialModel.loss = 'rawnerf_unbiased'
+MaterialModel.linear_to_srgb = False
+
+MaterialModel.cache_loss_weight = 1.0
+MaterialModel.cache_loss = 'rawnerf_original'
+MaterialModel.cache_linear_to_srgb = False
+
+MaterialModel.material_loss_weight = 1.0
+MaterialModel.material_loss = 'rawnerf_unbiased'
+MaterialModel.material_linear_to_srgb = False
+
+# Normals
+DensityMLP.disable_density_normals = True
+DensityMLP.enable_pred_normals = True
+
+Config.orientation_loss_mult = 0.01
+Config.orientation_loss_target = 'normals_pred'
+
+Config.predicted_normal_loss_mult = 0.01
+Config.predicted_normal_reverse_loss_mult = 0.1
+
+# Material MLP
+MaterialMLP.normals_target = 'normals'
+Config.material_normals_target = 'normals'
+
+# Secondary samples
+MaterialModel.slf_variate = True
+
+MaterialMLP.num_secondary_samples = 8
+MaterialMLP.render_num_secondary_samples = 8
+
+MaterialMLP.num_secondary_samples_diff = 4
+MaterialMLP.render_num_secondary_samples_diff = 4

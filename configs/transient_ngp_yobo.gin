@@ -1,0 +1,481 @@
+include 'trainer.gin'
+
+# General params
+Config.use_transient = True
+
+Config.base_batch_size = 65536
+Config.cast_rays_in_eval_step = True
+Config.cast_rays_in_train_step = True
+Config.metric_harness_eval_config = {}
+
+# Model type
+Config.model_type = %ModelType.TRANSIENT_MATERIAL
+
+# Optimization
+Config.lr_factor = 1.0
+Config.train_length_mult = 1
+
+Config.adam_beta1 = 0.9
+Config.adam_beta2 = 0.99
+Config.adam_eps = 1e-15
+Config.render_chunk_size = 16384
+
+Config.checkpoint_every = 5000
+Config.print_every = 100
+Config.visualize_every = 5000
+
+Config.use_gradient_debias = True
+
+Config.data_coarse_loss_mult = 1.0
+
+TransientMaterialModel.loss_weight = 1.0
+TransientMaterialModel.loss = 'mse_unbiased'
+TransientMaterialModel.linear_to_srgb = False
+
+TransientMaterialModel.cache_loss_weight = 1.0
+TransientMaterialModel.cache_loss = 'charb'
+TransientMaterialModel.cache_linear_to_srgb = True
+
+Config.cache_consistency_loss_weight = 1.0
+
+TransientMaterialModel.material_loss_weight = 1.0
+TransientMaterialModel.material_loss = 'mse_unbiased'
+TransientMaterialModel.material_linear_to_srgb = False
+
+Config.lr_delay_mult = 1e-08
+Config.lr_delay_steps = 2500
+Config.lr_init = 0.01
+Config.lr_final = 0.001
+
+
+Config.use_grad_accum = False
+Config.grad_accum_steps = 1
+Config.use_secondary_grad_accum = False
+Config.secondary_grad_accum_steps = 1
+Config.grad_max_norm = 0.0
+Config.grad_max_val = 0.0
+
+Config.batch_size = 65536
+Config.max_steps = 25000
+
+Config.extra_opt_params = {
+    "Cache": {
+        "lr_delay_steps": 1250,
+        "lr_final": 0.0001,
+        "lr_init": 0.01,
+
+        "lr_delay_steps_material": 0,
+        "lr_final_material": 0.00002,
+        "lr_init_material": 0.002,
+    },
+    "SurfaceLightField": {
+        "lr_delay_steps": 1250,
+        "lr_final": 0.0001,
+        "lr_init": 0.01,
+
+        "lr_delay_steps_material": 0,
+        "lr_final_material": 0.00002,
+        "lr_init_material": 0.002,
+    },
+    "LightSampler": {
+        "lr_delay_steps": 1250,
+        "lr_final": 0.00002,
+        "lr_init": 0.002,
+
+        "lr_delay_steps_material": 0,
+        "lr_final_material": 0.00002,
+        "lr_init_material": 0.002,
+    },
+    "VignetteMap": {
+        "lr_delay_steps": 1250,
+        "lr_final": 0.00002,
+        "lr_init": 0.002,
+
+        "lr_delay_steps_material": 0,
+        "lr_final_material": 0.00002,
+        "lr_init_material": 0.002,
+    },
+    "MaterialShader": {
+        "lr_delay_steps": 1250,
+        "lr_final": 0.00002,
+        "lr_init": 0.002,
+
+        "lr_delay_steps_material": 0,
+        "lr_final_material": 0.00002,
+        "lr_init_material": 0.002,
+    },
+    "LightSourceMap": {
+        "lr_delay_steps": 1250,
+        "lr_final": 0.00002,
+        "lr_init": 0.002,
+
+        "lr_delay_steps_material": 0,
+        "lr_final_material": 0.00002,
+        "lr_init_material": 0.002,
+    },
+    "light_power": {
+        "lr_delay_steps": 1250,
+        "lr_final": 0.00002,
+        "lr_init": 0.002,
+
+        "lr_delay_steps_material": 0,
+        "lr_final_material": 0.00002,
+        "lr_init_material": 0.002,
+    },
+}
+
+# Hash encoding
+HashEncoding.hash_map_size = 524288
+HashEncoding.max_grid_size = 2048
+HashEncoding.scale_supersample = 1.0
+
+# Hash averaging
+DensityMLP.unscented_mip_basis = 'mean'
+DensityMLP.unscented_scale_mult = 0.0
+
+TransientNeRFMLP.unscented_mip_basis = 'mean'
+TransientNeRFMLP.unscented_scale_mult = 0.0
+
+TransientSurfaceLightFieldMLP.unscented_mip_basis = 'mean'
+TransientSurfaceLightFieldMLP.unscented_scale_mult = 0.0
+
+LightMLP.unscented_mip_basis = 'mean'
+LightMLP.unscented_scale_mult = 0.0
+
+TransientMaterialMLP.unscented_mip_basis = 'mean'
+TransientMaterialMLP.unscented_scale_mult = 0.0
+
+# Density MLP
+DensityMLP.density_activation = @math.safe_exp
+DensityMLP.net_depth = 2
+DensityMLP.net_width = 64
+
+# NeRF MLP (Appearance Model)
+TransientNeRFMLP.num_glo_features = 0
+
+TransientNeRFMLP.use_reflections = True
+
+TransientNeRFMLP.enable_pred_roughness = True
+TransientNeRFMLP.use_specular_tint = True
+
+TransientNeRFMLP.net_depth = 0
+TransientNeRFMLP.net_width = 64
+TransientNeRFMLP.bottleneck_width = 128
+
+TransientNeRFMLP.net_depth_integrated_brdf = 2
+TransientNeRFMLP.net_width_integrated_brdf = 64
+TransientNeRFMLP.skip_layer_integrated_brdf = 2
+
+TransientNeRFMLP.use_ambient = True
+TransientNeRFMLP.simple_brdf = False
+TransientNeRFMLP.deg_brdf = 2
+TransientNeRFMLP.net_depth_brdf = 2
+TransientNeRFMLP.net_width_brdf = 64
+TransientNeRFMLP.skip_layer_brdf = 2
+
+TransientNeRFMLP.net_depth_irradiance = 2
+TransientNeRFMLP.net_width_irradiance = 64
+TransientNeRFMLP.bottleneck_irradiance = 64
+TransientNeRFMLP.skip_layer_irradiance = 2
+
+TransientNeRFMLP.use_grid = True
+TransientNeRFMLP.grid_representation = 'ngp'
+TransientNeRFMLP.grid_params = {
+    'hash_map_size': 524288,
+    'max_grid_size': 2048,
+    'num_features': 4,
+}
+
+# Sampler
+ProposalVolumeSampler.anneal_slope = 10.0
+ProposalVolumeSampler.anneal_end = 1.0
+ProposalVolumeSampler.anneal_clip = 0.4
+ProposalVolumeSampler.resample_padding = 1e-5
+
+ProposalVolumeSampler.dilation_bias = 0.0
+ProposalVolumeSampler.dilation_multiplier = 0.0
+
+DensityMLP.grid_representation = 'ngp'
+ProposalVolumeSampler.grid_params_per_level = (
+    {
+        'hash_map_size': 524288,
+        'max_grid_size': 512,
+        'num_features': 1,
+    },
+    {
+        'hash_map_size': 524288,
+        'max_grid_size': 1024,
+        'num_features': 1,
+    },
+    {
+        'hash_map_size': 524288,
+        'max_grid_size': 2048,
+        'num_features': 4,
+    },
+)
+
+ProposalVolumeSampler.mlp_params_per_level = (
+    {
+      'disable_density_normals': False,
+      'enable_pred_normals': False,
+      'enable_normals_offset': False,
+      'normals_for_filter_only': True,
+      'net_depth': 2,
+      'net_width': 64,
+    },
+    {
+      'disable_density_normals': False,
+      'enable_pred_normals': False,
+      'enable_normals_offset': False,
+      'normals_for_filter_only': True,
+      'net_depth': 2,
+      'net_width': 64,
+    },
+    {
+      'disable_density_normals': False,
+      'enable_pred_normals': True,
+      'normals_for_filter_only': False,
+      'net_depth': 2,
+      'net_width': 64,
+    }
+)
+
+TransientSurfaceLightFieldMLP.raydist_fn = (
+    @math.power_ladder,
+    @math.inv_power_ladder,
+    {'p': -1.5, 'premult': 2}
+)
+
+ProposalVolumeSampler.raydist_fn = (
+    @math.power_ladder,
+    @math.inv_power_ladder,
+    {'p': -1.5, 'premult': 2}
+)
+
+# Sampler losses
+Config.use_spline_interlevel_loss = True
+Config.interlevel_loss_mults = (0.01, 0.01)
+Config.interlevel_loss_blurs = (0.03, 0.003)
+
+Config.distortion_loss_mult = 0.0
+Config.distortion_loss_target = 'tdist'
+
+Config.distortion_loss_curve_fn = \
+    (@math.power_ladder, {'p': -0.25, 'premult': 10000.0})
+
+# Material MLP
+TransientMaterialMLP.brdf_bias = {
+    'albedo': -1.0,
+    'specular_albedo': -1.0,
+    'roughness': -1.0,
+    'F_0': -3.078,
+    'metalness': 0.0,
+    'diffuseness': 0.0,
+    'mirrorness': 2.0,
+    'specular_multiplier': 0.0,
+    'diffuse_multiplier': 0.0,
+}
+
+TransientMaterialMLP.brdf_activation = {
+    'albedo': @jax.nn.sigmoid,
+    'specular_albedo': @jax.nn.sigmoid,
+    'roughness': @jax.nn.sigmoid,
+    'F_0': @jax.nn.sigmoid,
+    'metalness': @jax.nn.sigmoid,
+    'diffuseness': @jax.nn.sigmoid,
+    'mirrorness': @jax.nn.sigmoid,
+}
+
+TransientMaterialMLP.brdf_stopgrad = {
+    'albedo': 1.0,
+    'specular_albedo': 1.0,
+    'roughness': 1.0,
+    'F_0': 1.0,
+    'metalness': 1.0,
+    'diffuseness': 1.0,
+    'mirrorness': 1.0,
+}
+
+TransientMaterialMLP.use_diffuseness = False
+TransientMaterialMLP.use_mirrorness = False
+TransientMaterialMLP.use_specular_albedo = False
+TransientMaterialMLP.use_constant_metalness = False
+MaterialMLP.use_constant_fresnel = True
+
+DensityMLP.enable_normals_offset = False
+
+TransientMaterialMLP.use_brdf_correction = False
+TransientMaterialMLP.anisotropic_brdf_correction = False
+TransientMaterialMLP.per_point_brdf_correction = False
+TransientMaterialMLP.global_brdf_correction = False
+
+TransientMaterialMLP.min_roughness = 0.01
+TransientMaterialMLP.default_F_0 = 0.04
+TransientMaterialMLP.max_F_0 = 1.0
+
+TransientMaterialMLP.use_irradiance_cache = False
+TransientMaterialMLP.rgb_irradiance_activation = @jax.nn.softplus
+TransientMaterialMLP.rgb_bias_irradiance = -1.0
+
+TransientMaterialMLP.rgb_emission_activation = @jax.nn.softplus
+TransientMaterialMLP.rgb_bias_emission = -1.0
+
+TransientMaterialMLP.rgb_residual_albedo_activation = @jax.nn.softplus
+TransientMaterialMLP.rgb_bias_residual_albedo = -1.0
+
+TransientMaterialMLP.net_depth = 0
+TransientMaterialMLP.net_width = 64
+TransientMaterialMLP.bottleneck_width = 128
+
+TransientMaterialMLP.net_depth_brdf = 2
+TransientMaterialMLP.net_width_brdf = 64
+TransientMaterialMLP.deg_brdf = 2
+TransientMaterialMLP.deg_brdf_anisotropic = 2
+
+TransientMaterialMLP.use_density_feature = False
+TransientMaterialMLP.use_mis = True
+
+TransientMaterialMLP.use_grid = True
+TransientMaterialMLP.grid_representation = 'ngp'
+TransientMaterialMLP.grid_params = {
+    'hash_map_size': 524288,
+    'num_features': 4,
+    'max_grid_size': 2048,
+}
+
+# Light Sampler
+LightMLP.vmf_scale = 20.0
+LightMLP.num_components = 128
+
+LightMLP.net_depth = 2
+LightMLP.net_width = 64
+LightMLP.skip_layer = 2
+LightMLP.bottleneck_width = 128
+
+LightMLP.use_density_feature = False
+LightMLP.use_grid = True
+LightMLP.grid_representation = 'ngp'
+LightMLP.grid_params = {
+    'hash_map_size': 524288,
+    'num_features': 4,
+    'max_grid_size': 2048,
+}
+
+# Sampling strategy
+TransientMaterialModel.slf_variate = True
+TransientMaterialMLP.separate_integration_diffuse_specular = True
+TransientMaterialMLP.diffuse_sample_fraction = 0.5
+
+TransientNeRFModel.resample = False
+TransientNeRFModel.resample_render = False
+TransientNeRFModel.stopgrad_geometry_weight = 1.0
+TransientNeRFModel.stopgrad_geometry_feature_weight = 1.0
+TransientNeRFModel.stopgrad_geometry_normals_weight = 1.0
+Config.stopgrad_cache_geometry = False
+Config.stopgrad_cache_geometry_weight = 0.0
+Config.no_material_regularizers = False
+
+TransientMaterialModel.resample = False
+TransientMaterialModel.resample_render = False
+TransientMaterialModel.num_resample = 1
+
+TransientMaterialMLP.num_secondary_samples = 32
+TransientMaterialMLP.render_num_secondary_samples = 32
+
+TransientMaterialMLP.num_secondary_samples_diff = 4
+TransientMaterialMLP.render_num_secondary_samples_diff = 4
+
+ProposalVolumeSampler.sampling_strategy = (
+    (0, 0, 64),
+    (1, 1, 64),
+    (2, 2, 32),
+)
+TransientNeRFModel.train_sampling_strategy = (
+    (0, 0, 64),
+    (1, 1, 64),
+    (2, 2, 32),
+)
+TransientNeRFModel.render_sampling_strategy = (
+    (0, 0, 64),
+    (1, 1, 64),
+    (2, 2, 32),
+)
+TransientMaterialModel.train_sampling_strategy = (
+    (0, 0, 64),
+    (1, 1, 64),
+    (2, 2, 32),
+)
+TransientMaterialModel.render_sampling_strategy = (
+    (0, 0, 64),
+    (1, 1, 64),
+    (2, 2, 32),
+)
+TransientMaterialMLP.cache_train_sampling_strategy = (
+    (0, 0, 64),
+    (1, 1, 64),
+    (2, 2, 32),
+)
+TransientMaterialMLP.cache_render_sampling_strategy = (
+    (0, 0, 64),
+    (1, 1, 64),
+    (2, 2, 32),
+)
+
+TransientMaterialMLP.resample_cache = True
+
+# Material stopgrads
+TransientMaterialMLP.stopgrad_material = True
+TransientMaterialMLP.stopgrad_light = True
+
+TransientMaterialMLP.stopgrad_samples = False
+TransientMaterialMLP.stopgrad_rays = False
+TransientMaterialMLP.stopgrad_rgb = False
+
+TransientMaterialModel.stopgrad_samples = False
+
+# Extra losses
+Config.surface_light_field_loss_depth_scale = 0.125
+Config.surface_light_field_loss_acc_scale_opaque = 0.125
+Config.surface_light_field_loss_acc_scale_empty = 0.125
+Config.surface_light_field_loss_bound_scale = 0.0
+Config.surface_light_field_loss_bounce = False
+Config.surface_light_field_loss_outward = False
+
+Config.opaque_loss_weight = 0.1
+Config.empty_loss_weight = 1.0
+Config.mask_lossmult = True
+Config.evaluate_without_masks = False
+Config.clip_eval = False
+DensityMLP.density_bias = -1.0
+
+Config.material_smoothness_noise = 0.01
+Config.material_smoothness_l1_loss = True
+Config.material_smoothness_albedo_stopgrad = False
+
+Config.use_geometry_smoothness = False
+Config.geometry_smoothness_noise = 0.01
+Config.geometry_smoothness_weight_normals = 0.001
+Config.geometry_smoothness_weight_normals_pred = 0.0
+Config.geometry_smoothness_weight_density = 0.0
+
+# HDR Settings
+Config.use_exrs = True
+Config.linear_to_srgb = False
+Config.light_sampling_linear_to_srgb = True
+Config.surface_light_field_linear_to_srgb = True
+Config.surface_light_field_loss_type = 'mse'
+Config.calib_checkpoint = ''
+Config.optimize_calib_on_load = False
+
+# RGB Activation
+TransientNeRFMLP.rgb_activation = @jax.nn.softplus
+TransientNeRFMLP.rgb_bias_diffuse = -1.0
+
+TransientSurfaceLightFieldMLP.rgb_activation = @jax.nn.softplus
+TransientSurfaceLightFieldMLP.rgb_bias = -1.0
+
+Config.data_loss_mult = 1.0
+Config.finetune_multiplier = 10.0
+Config.train_exclude_prefixes = []
+Config.itof_frequency_phase_shifts = []
+Config.transient_gauss_sigma_scales = []

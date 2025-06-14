@@ -1,0 +1,4 @@
+include 'transient_simulation_ngp_yobo_house.gin'
+
+# Config.optimize_calib_on_load = False
+# LightSourceMap.use_network = False

@@ -1,0 +1,11 @@
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene house_itof --stage material_light_from_scratch_resample --batch_size 1024 --grad_accum_steps 4 --sample_factor 4 --sample_render_factor 4 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene spheres_itof --stage material_light_from_scratch_resample --batch_size 1024 --grad_accum_steps 4 --sample_factor 4 --sample_render_factor 4 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene peppers_itof --stage material_light_from_scratch_resample --batch_size 1024 --grad_accum_steps 4 --sample_factor 4 --sample_render_factor 4 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene globe_itof --stage material_light_from_scratch_resample --batch_size 1024 --grad_accum_steps 4 --sample_factor 4 --sample_render_factor 4 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene house_steady_state --stage material_light_from_scratch_resample --batch_size 1024 --grad_accum_steps 4 --sample_factor 4 --sample_render_factor 4 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene spheres_steady_state --stage material_light_from_scratch_resample --batch_size 1024 --grad_accum_steps 4 --sample_factor 4 --sample_render_factor 4 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene peppers_steady_state --stage material_light_from_scratch_resample --batch_size 1024 --grad_accum_steps 4 --sample_factor 4 --sample_render_factor 4 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene globe_steady_state --stage material_light_from_scratch_resample --batch_size 1024 --grad_accum_steps 4 --sample_factor 4 --sample_render_factor 4 --early_exit_steps 100000
+
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene spheres_itof --stage material_light_from_scratch_resample --batch_size 1024 --grad_accum_steps 4 --sample_factor 4 --sample_render_factor 4 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene house_steady_state --stage material_light_from_scratch_resample --batch_size 1024 --grad_accum_steps 4 --sample_factor 4 --sample_render_factor 4 --early_exit_steps 100000

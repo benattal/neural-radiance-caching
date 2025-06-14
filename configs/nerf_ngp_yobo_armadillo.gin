@@ -1,0 +1,16 @@
+include 'nerf_ngp_yobo.gin'
+
+Config.data_dir = "~/data/tensoir/armadillo"
+
+ProposalVolumeSampler.anneal_clip = 0.4
+Config.distortion_loss_mult = 0.0
+
+Config.predicted_normal_loss_mult = 0.025
+Config.predicted_normal_reverse_loss_mult = 0.025
+
+Config.use_normal_weight_ease = True
+Config.use_normal_weight_ease_backward = True
+
+Config.normal_weight_ease_frac = 0.0
+Config.normal_weight_ease_start = 0.0
+Config.normal_weight_ease_min = 0.001

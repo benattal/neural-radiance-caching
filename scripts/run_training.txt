@@ -1,0 +1,15 @@
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene globe --stage material_light_from_scratch_resample --batch_size 4096 --grad_accum_steps 1 --sample_factor 1 --sample_render_factor 1 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene house --stage material_light_from_scratch_resample --batch_size 4096 --grad_accum_steps 1 --sample_factor 1 --sample_render_factor 1 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene spheres --stage material_light_from_scratch_resample --batch_size 4096 --grad_accum_steps 1 --sample_factor 1 --sample_render_factor 1 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene kettle --stage material_light_from_scratch_resample --batch_size 4096 --grad_accum_steps 1 --sample_factor 1 --sample_render_factor 1 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene statue --stage material_light_from_scratch_resample --batch_size 4096 --grad_accum_steps 1 --sample_factor 1 --sample_render_factor 1 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene globe --stage cache --batch_size 4096 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene house --stage cache --batch_size 4096 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene spheres --stage cache --batch_size 4096 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene kettle --stage cache --batch_size 4096 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene statue --stage cache --batch_size 4096 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene globe_tnerf --stage cache --batch_size 4096 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene house_tnerf --stage cache --batch_size 4096 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene spheres_tnerf --stage cache --batch_size 4096 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene kettle_tnerf --stage cache --batch_size 4096 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene statue_tnerf --stage cache --batch_size 4096 --early_exit_steps 100000

@@ -1,0 +1,344 @@
+include 'transient_simulation_ngp_yobo.gin'
+
+Config.width = 512
+Config.height = 512
+Config.test_width = 128
+Config.test_height = 128
+
+Config.transient_start_idx = 510
+Config.transient_end_idx = 1500
+Config.no_shift_direct = False
+
+Config.viz_name = '1_60'
+Config.light_name = '2_60'
+Config.sl_hfov = 24.0
+Config.sl_vfov = 28.0
+Config.sl_shift = (0.0, -80.0)
+Config.sl_paths = ['data/yobo/hello_h_wo.png', 'data/yobo/hello_ell_r.png', 'data/yobo/hello_o_ld.png']
+Config.finetune_multiplier = 10.0
+
+# Config.width = 128
+# Config.height = 128
+
+Config.light_transforms = [
+    [
+        [
+            0.0003831408327297855,
+            -0.9999999152867,
+            0.0001504316957933679,
+            0.8370092300209077
+        ],
+        [
+            0.9999995929462128,
+            0.0003830178142775135,
+            -0.0008169484456031986,
+            0.09830451927694116
+        ],
+        [
+            0.0008168907583774791,
+            0.00015074464086732212,
+            0.9999996549827115,
+            3.6159140641004703
+        ],
+        [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ]
+    ],
+
+    [
+        [
+            0.0003831408327297855,
+            -0.9999999152867,
+            0.0001504316957933679,
+            0.8370092300209077
+        ],
+        [
+            0.9999995929462128,
+            0.0003830178142775135,
+            -0.0008169484456031986,
+            0.09830451927694116
+        ],
+        [
+            0.0008168907583774791,
+            0.00015074464086732212,
+            0.9999996549827115,
+            3.6159140641004703
+        ],
+        [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ]
+    ],
+
+    [
+        [
+            0.0003831408327297855,
+            -0.9999999152867,
+            0.0001504316957933679,
+            0.8370092300209077
+        ],
+        [
+            0.9999995929462128,
+            0.0003830178142775135,
+            -0.0008169484456031986,
+            0.09830451927694116
+        ],
+        [
+            0.0008168907583774791,
+            0.00015074464086732212,
+            0.9999996549827115,
+            3.6159140641004703
+        ],
+        [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+        ]
+    ],
+]
+
+Config.data_dir = "/scratch/ondemand28/anagh/active-yobo/data/yobo/final_captured/house_11_01"
+Config.num_dataset_images = -1
+Config.train_render_every = 300
+Config.dataset_loader = 'fwp_transient_captured'
+
+Config.impulse_response = "./data/yobo/pulse.npy"
+Config.filter_indirect = False
+Config.tfilter_sigma = 10.21
+
+Config.calib_checkpoint = "./data/yobo/vignette/checkpoint_00000"
+# Config.calib_checkpoint = ""
+# Config.train_exclude_prefixes = []
+
+Config.compute_transient_metrics = True
+Config.light_static_wrt_camera = True
+TransientNeRFMLP.simple_brdf = False
+TransientMaterialMLP.use_constant_metalness = False
+
+Config.n_impulse_response_bins = 85
+Config.n_bins = 2336
+Config.start_bin = 664
+Config.test_start_bin = 1664
+Config.exposure_time = 0.010376310322275158
+Config.light_source_position = [-0.73867326, -0.05389526, 0.16914815]
+
+Config.flip_secondary = True
+Config.y_up = False
+Config.secondary_rays_no_vis_transform = False
+Config.compute_depth_metrics = False
+
+Config.transient_shift = 0.045197543
+Config.dark_level = 0.0002
+Config.mask_threshold = 0.0
+
+Config.dataset_scale = 600
+Config.img_scale = 4
+TransientNeRFMLP.rgb_max = 100
+
+Config.num_rgb_channels = 1
+TransientNeRFMLP.num_rgb_channels = 1
+TransientMaterialMLP.num_rgb_channels = 1
+
+# Sampling and contraction
+Config.near = 0.6
+Config.light_near = 0.6
+Config.light_zero = True
+Config.far = 12.0
+Config.material_loss_radius = 1000
+Config.secondary_far = 3.0
+
+TransientNeRFMLP.use_ambient = False
+TransientNeRFMLP.use_indirect = True
+TransientNeRFMLP.use_active = True
+TransientNeRFMLP.use_reflections = True
+
+Config.use_occlusions = False
+Config.occlusions_secondary_only = True
+Config.occlusions_primary_only = True
+
+TransientMaterialMLP.use_active = True
+TransientMaterialMLP.use_indirect = True
+TransientSurfaceLightFieldMLP.use_indirect = True
+
+TransientMaterialMLP.stopgrad_shading_weight = 1e-2
+TransientMaterialMLP.stopgrad_cache_weight = (1e4, 1e-6)
+TransientNeRFMLP.stopgrad_occ_weight = (0.0, 0.0)
+
+TransientMaterialMLP.stopgrad_rays = True
+TransientMaterialMLP.stopgrad_samples = True
+TransientMaterialMLP.stopgrad_rgb = False
+
+TransientMaterialModel.use_vignette = True
+Config.data_loss_mult = 0.5
+
+Config.itof_frequency_phase_shifts = []
+Config.data_loss_gauss_mult = 0.01
+Config.transient_gauss_constant_scale = 0.5
+Config.use_shift_invariance = False
+Config.shift_invariant_start = -4
+Config.shift_invariant_end = 4
+Config.shift_invariant_step = 1
+
+Config.bin_zero_threshold_light = 100
+
+TransientMaterialModel.cache_loss = 'rawnerf_transient_unbiased'
+TransientMaterialModel.loss = 'rawnerf_transient_unbiased'
+Config.cache_consistency_loss_type = 'rawnerf_transient_unbiased'
+
+Config.rawnerf_exponent = 1
+Config.rawnerf_exponent_material = 1
+
+Config.rawnerf_eps = 1e-1
+Config.rawnerf_eps_material = 1e-1
+
+TransientNeRFModel.resample = False
+TransientNeRFModel.resample_secondary = False
+TransientNeRFModel.resample_render = False
+
+TransientNeRFModel.stopgrad_weight_variate = 1.0
+TransientNeRFModel.stopgrad_weight_model = 1.0
+TransientNeRFModel.stopgrad_geometry_weight = 1.0
+
+TransientMaterialModel.stopgrad_weight_variate = 0.0
+TransientMaterialModel.stopgrad_weight_model = 1.0
+TransientMaterialModel.stopgrad_geometry_weight = 0.0
+
+Config.volume_variate = False
+Config.volume_variate_material = False
+Config.volume_variate_secondary = False
+Config.volume_variate_passes = ["direct"]
+Config.volume_variate_passes_secondary = ["direct"]
+
+Config.cache_consistency_loss_mode = 'shader'
+Config.cache_consistency_use_total = True
+Config.cache_consistency_use_integrated = True
+Config.cache_consistency_fix_shader = False
+Config.cache_consistency_loss_weight = 0.1
+Config.cache_consistency_stopgrad_weight_cache = 1.0
+Config.cache_consistency_direct_weight = 1.0
+Config.cache_consistency_indirect_weight = 1.0
+TransientMaterialModel.loss_weight = 0.1
+
+TransientNeRFMLP.stopgrad_ambient_weight = 1.0
+TransientNeRFMLP.stopgrad_indirect_weight = 1.0
+TransientNeRFMLP.stopgrad_direct_weight = 1.0
+
+TransientNeRFMLP.stopgrad_normals_weight = 1.0
+TransientNeRFMLP.stopgrad_shading_normals_weight = 1.0
+TransientMaterialMLP.stopgrad_indirect_weight = 1.0
+TransientMaterialMLP.stopgrad_direct_weight = 0.25
+
+ProposalVolumeSampler.anneal_slope = 10.0
+ProposalVolumeSampler.anneal_clip = 0.4
+ProposalVolumeSampler.anneal_end = 1.0
+
+TransientMaterialModel.share_material = False
+TransientMaterialModel.share_light_power = True
+
+Config.use_falloff = True
+Config.learnable_light = True
+Config.light_intensity_conditioning = False
+Config.light_intensity_conditioning_scale = 1.0
+Config.light_intensity_conditioning_bias = 0.0
+
+TransientNeRFMLP.light_power_bias = 3.9
+TransientMaterialMLP.light_power_bias = 3.9
+LightSourceMap.light_power_bias = 3.9
+TransientNeRFMLP.light_power_activation = @math.safe_exp
+TransientMaterialMLP.light_power_activation = @math.safe_exp
+LightSourceMap.light_power_activation = @math.safe_exp
+TransientNeRFMLP.indirect_scale = 0.01
+
+LightSourceMap.global_light_source = False
+LightSourceMap.relative_to_camera = False
+LightSourceMap.use_gaussian = False
+LightSourceMap.gaussian_scale = 1.0
+
+LightSourceMap.use_network = True
+LightSourceMap.use_light_source_dir = True
+LightSourceMap.use_light_source_norm = False
+
+LightSourceMap.optimize_light_position = False
+LightSourceMap.optimize_transient_shift = False
+LightSourceMap.optimize_gaussian = False
+LightSourceMap.optimize_dark_level = False
+Config.optimize_calib_on_load = False
+
+LightSourceMap.orthogonal_scale = 0.1
+LightSourceMap.right_scale = 0.1
+LightSourceMap.look_scale = 1.0
+
+Config.material_smoothness_l1_loss = True
+Config.material_smoothness_tensoir_albedo = True
+Config.material_smoothness_noise = 1e-1
+Config.material_smoothness_weight_albedo = 0.00001
+Config.material_smoothness_weight_other = 0.00001
+
+Config.distortion_loss_mult = 0.001
+Config.orientation_loss_mult = 0.001
+Config.predicted_normal_loss_mult = 0.0004
+Config.predicted_normal_reverse_loss_mult = 0.001
+Config.predicted_normal_loss_stopgrad_weight = 1.0
+Config.material_predicted_normal_loss_mult = 0
+Config.opaque_loss_weight = 0.002
+Config.empty_loss_weight = 0.0
+Config.backward_mask_loss_weight = 0.002
+Config.backward_mask_loss = True
+Config.mask_lossmult = False
+
+Config.interlevel_loss_mults = (0.01, 0.01)
+Config.param_regularizers = {
+    'density_grid': (1.0, @jnp.mean, 2, 1),
+}
+Config.material_ray_sampler_interlevel_loss_mult = 0.0
+Config.material_ray_sampler_normal_loss_mult = 0.0
+
+Config.use_geometry_weight_decay = False
+Config.use_geometry_smoothness = True
+Config.geometry_smoothness_noise = 0.1
+Config.geometry_smoothness_weight_normals = 0.00025
+Config.geometry_smoothness_weight_normals_pred = 0.0
+Config.geometry_smoothness_weight_density = 0.0
+
+# Contraction
+DensityMLP.warp_fn = @coord.contract_radius_2
+TransientNeRFMLP.warp_fn = @coord.contract_radius_2
+TransientSurfaceLightFieldMLP.warp_fn = @coord.contract_radius_2
+TransientSurfaceLightFieldMLP.ref_warp_fn = @coord.contract_radius_2
+LightMLP.warp_fn = @coord.contract_radius_2
+TransientMaterialMLP.warp_fn = @coord.contract_radius_2
+HashEncoding.bbox_scaling = 2.0
+
+Config.occ_threshold_max = 0.9
+Config.occ_threshold_min = 0.9
+Config.occ_threshold_rate = 0.1
+Config.occ_threshold_start_frac = 0.1
+
+Config.shadow_near_max = 2e-1
+Config.shadow_near_min = 1e-1
+Config.shadow_near_rate = 0.1
+Config.shadow_near_start_frac = 0.1
+Config.shadow_normal_eps_dot_min = 1e-1
+Config.shadow_normals_target = 'normals'
+Config.shadow_sampling_strategy = (
+    (0, 0, 64),
+    (1, 1, 64),
+    (2, 2, 32),
+)
+
+TransientMaterialMLP.near_max = 2e-1
+TransientMaterialMLP.near_min = 1e-1
+TransientMaterialMLP.near_rate = 0.1
+TransientMaterialMLP.near_start_frac = 0.1
+TransientMaterialMLP.shadow_eps_indirect = True
+Config.secondary_normal_eps = 0.0
+
+Config.surface_light_field_loss_near = 1e-1
+TransientNeRFMLP.surface_lf_distance_near = 1e-1
+TransientNeRFMLP.surface_lf_distance_far = 3.0

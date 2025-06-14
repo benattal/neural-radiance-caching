@@ -1,0 +1,7 @@
+include 'blender_ngp_yobo.gin'
+
+Config.data_dir = "~/data/yobo/lego_box_small_light_aliased_pano"
+
+Config.near = 1
+Config.far = 14
+Config.secondary_far = 20

@@ -1,0 +1,8 @@
+--find-links https://storage.googleapis.com/jax-releases/jax_cuda_releases.html
+jax==0.4.16
+jaxlib==0.4.16+cuda11.cudnn86  # Make sure CUDA version matches the base image.
+flax
+scikit-image==0.22.0
+scipy==1.11.3
+plyfile
+orbax-checkpoint==0.4.1

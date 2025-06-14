@@ -1,0 +1,45 @@
+CUDA_VISIBLE_DEVICES=6 bash scripts/eval_dgp.sh --scene spheres --stage material_light_resample_finetune --light_idx 0 --suffix _0 --take_stage material_light_resample_finetune_0 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=7 bash scripts/eval_dgp.sh --scene spheres --stage material_light_resample_finetune --light_idx 1 --suffix _1 --take_stage material_light_resample_finetune_1 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=8 bash scripts/eval_dgp.sh --scene spheres --stage material_light_resample_finetune --light_idx 2 --suffix _2 --take_stage material_light_resample_finetune_2 --sample_render_factor 1 --eval_path --fixed_light
+
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene globe --stage material_light_resample_finetune --take_stage material_light_resample_finetune --sample_render_factor 1 --eval_path
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene spheres --stage material_light_resample_finetune --take_stage material_light_resample_finetune --sample_render_factor 1 --eval_path
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene house --stage material_light_resample_finetune --take_stage material_light_resample_finetune --sample_render_factor 1 --eval_path
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene statue --stage material_light_resample_finetune --take_stage material_light_resample_finetune --sample_render_factor 1 --eval_path
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene cornell --stage material_light_resample_finetune --take_stage material_light_resample_finetune --sample_render_factor 1 --eval_path
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene pots --stage material_light_resample_finetune --take_stage material_light_resample_finetune --sample_render_factor 1 --eval_path
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene peppers --stage material_light_resample_finetune --take_stage material_light_resample_finetune --sample_render_factor 1 --eval_path
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene kitchen --stage material_light_resample_finetune --take_stage material_light_resample_finetune --sample_render_factor 1 --eval_path
+
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene globe --stage material_light_resample_finetune --light_idx 0 --suffix _0 --take_stage material_light_resample_finetune_0 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene spheres --stage material_light_resample_finetune --light_idx 0 --suffix _0 --take_stage material_light_resample_finetune_0 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene house --stage material_light_resample_finetune --light_idx 0 --suffix _0 --take_stage material_light_resample_finetune_0 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene statue --stage material_light_resample_finetune --light_idx 0 --suffix _0 --take_stage material_light_resample_finetune_0 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene cornell --stage material_light_resample_finetune --light_idx 0 --suffix _0 --take_stage material_light_resample_finetune_0 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene pots --stage material_light_resample_finetune --light_idx 0 --suffix _0 --take_stage material_light_resample_finetune_0 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene peppers --stage material_light_resample_finetune --light_idx 0 --suffix _0 --take_stage material_light_resample_finetune_0 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene kitchen --stage material_light_resample_finetune --light_idx 0 --suffix _0 --take_stage material_light_resample_finetune_0 --sample_render_factor 1 --eval_path --fixed_light
+
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene globe --stage material_light_resample_finetune --light_idx 1 --suffix _1 --take_stage material_light_resample_finetune_1 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene spheres --stage material_light_resample_finetune --light_idx 1 --suffix _1 --take_stage material_light_resample_finetune_1 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene house --stage material_light_resample_finetune --light_idx 1 --suffix _1 --take_stage material_light_resample_finetune_1 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene statue --stage material_light_resample_finetune --light_idx 1 --suffix _1 --take_stage material_light_resample_finetune_1 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene cornell --stage material_light_resample_finetune --light_idx 1 --suffix _1 --take_stage material_light_resample_finetune_1 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene pots --stage material_light_resample_finetune --light_idx 1 --suffix _1 --take_stage material_light_resample_finetune_1 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene peppers --stage material_light_resample_finetune --light_idx 1 --suffix _1 --take_stage material_light_resample_finetune_1 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene kitchen --stage material_light_resample_finetune --light_idx 1 --suffix _1 --take_stage material_light_resample_finetune_1 --sample_render_factor 1 --eval_path --fixed_ligh
+
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene globe --stage material_light_resample_finetune --light_idx 2 --suffix _2 --take_stage material_light_resample_finetune_2 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene spheres --stage material_light_resample_finetune --light_idx 2 --suffix _2 --take_stage material_light_resample_finetune_2 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene house --stage material_light_resample_finetune --light_idx 2 --suffix _2 --take_stage material_light_resample_finetune_2 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene statue --stage material_light_resample_finetune --light_idx 2 --suffix _2 --take_stage material_light_resample_finetune_2 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene cornell --stage material_light_resample_finetune --light_idx 2 --suffix _2 --take_stage material_light_resample_finetune_2 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene pots --stage material_light_resample_finetune --light_idx 2 --suffix _2 --take_stage material_light_resample_finetune_2 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene peppers --stage material_light_resample_finetune --light_idx 2 --suffix _2 --take_stage material_light_resample_finetune_2 --sample_render_factor 1 --eval_path --fixed_light
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene kitchen --stage material_light_resample_finetune --light_idx 2 --suffix _2 --take_stage material_light_resample_finetune_2 --sample_render_factor 1 --eval_path --fixed_lightn
+
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene house --stage material_light_from_scratch_resample --sample_render_factor 1 --eval_train --fixed_camera --fixed_light --vis_start 0 --vis_end 1
+
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene house --stage material_light_resample_finetune --light_idx 0 --suffix _0 --take_stage material_light_resample_finetune_0 --sample_render_factor 1 --eval_train --fixed_camera --fixed_light --sl_relight --vis_start 0 --vis_end 1 --render_repeats 1
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene house --stage material_light_resample_finetune --light_idx 1 --suffix _1 --take_stage material_light_resample_finetune_1 --sample_render_factor 1 --eval_train --fixed_camera --fixed_light --sl_relight --vis_start 0 --vis_end 1 --render_repeats 1
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene house --stage material_light_resample_finetune --light_idx 2 --suffix _2 --take_stage material_light_resample_finetune_2 --sample_render_factor 1 --eval_train --fixed_camera --fixed_light --sl_relight --vis_start 0 --vis_end 1 --render_repeats 1

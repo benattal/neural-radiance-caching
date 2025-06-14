@@ -1,0 +1,19 @@
+include 'transient_simulation_ngp_yobo_kettle.gin'
+
+Config.learnable_light = True
+Config.optimize_calib_on_load = False
+
+LightSourceMap.global_light_source = False
+LightSourceMap.relative_to_camera = False
+Config.use_falloff = True
+LightSourceMap.use_gaussian = True
+LightSourceMap.optimize_light_position = False
+LightSourceMap.optimize_transient_shift = True
+LightSourceMap.optimize_dark_level = False
+
+# LightSourceMap.light_power_bias = 7518.6143
+# LightSourceMap.light_power_bias = 8.9251371313
+LightSourceMap.light_power_activation = @math.safe_exp
+LightSourceMap.orthogonal_scale = 0.0
+LightSourceMap.look_scale = 1.0
+LightSourceMap.light_max_angle = 0

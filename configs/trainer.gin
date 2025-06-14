@@ -1,0 +1,480 @@
+Trainer.stage_params = {
+            "cache": {
+                "render_chunk_size": 4096,
+
+                "use_light_sampler": False,
+                "use_material": False,
+                "use_surface_light_field": False,
+
+                "optimize_cache": True,
+                "optimize_light": False,
+                "optimize_surface_light_field": False,
+
+                "reduce_cache_factor": 1.0,
+                "reduce_surface_light_field_factor": 1.0,
+
+                "prefixes": None,
+                "exclude_prefixes": None,
+                "replace_dict": None,
+
+                "extra_losses": {
+                },
+            },
+            "surface_light_field": {
+                "render_chunk_size": 4096,
+
+                "use_light_sampler": False,
+                "use_material": False,
+                "use_surface_light_field": True,
+
+                "optimize_cache": True,
+                "optimize_light": True,
+                "optimize_surface_light_field": True,
+
+                "reduce_cache_factor": 1.0,
+                "reduce_surface_light_field_factor": 1.0,
+
+                "prefixes": None,
+                "exclude_prefixes": None,
+                "replace_dict": None,
+
+                "extra_losses": {
+                    "surface_light_field": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                },
+            },
+            "surface_light_field_light": {
+                "render_chunk_size": 4096,
+
+                "use_light_sampler": True,
+                "use_material": False,
+                "use_surface_light_field": True,
+
+                "optimize_cache": True,
+                "optimize_light": True,
+                "optimize_surface_light_field": True,
+
+                "reduce_cache_factor": 1.0,
+                "reduce_surface_light_field_factor": 1.0,
+
+                "prefixes": None,
+                "exclude_prefixes": None,
+                "replace_dict": None,
+
+                "extra_losses": {
+                    "light_sampling": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "surface_light_field": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                },
+            },
+            "light": {
+                "render_chunk_size": 4096,
+
+                "use_light_sampler": True,
+                "use_material": False,
+                "use_surface_light_field": False,
+
+                "optimize_cache": True,
+                "optimize_light": True,
+                "optimize_surface_light_field": False,
+
+                "reduce_cache_factor": 1.0,
+                "reduce_surface_light_field_factor": 1.0,
+
+                "prefixes": None,
+                "exclude_prefixes": None,
+                "replace_dict": None,
+
+                "extra_losses": {
+                    "light_sampling": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                },
+            },
+            "material": {
+                "render_chunk_size": 4096,
+
+                "use_light_sampler": False,
+                "use_material": True,
+                "use_surface_light_field": False,
+
+                "optimize_cache": True,
+                "optimize_light": True,
+                "optimize_surface_light_field": True,
+
+                "reduce_cache_factor": 1.0,
+                "reduce_surface_light_field_factor": 1.0,
+                "anneal_slope": 0.0,
+
+                "num_secondary_samples": 4,
+                "num_secondary_samples_render": 4,
+
+                "prefixes": None,
+                "exclude_prefixes": None,
+                "replace_dict": None,
+
+                "extra_losses": {
+                    "material_ray_sampler": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "material_smoothness": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "light_sampling": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                },
+            },
+            "material_surface_light_field": {
+                "render_chunk_size": 4096,
+
+                "use_light_sampler": False,
+                "use_material": True,
+                "use_surface_light_field": True,
+
+                "optimize_cache": True,
+                "optimize_light": True,
+                "optimize_surface_light_field": True,
+
+                "reduce_cache_factor": 1.0,
+                "reduce_surface_light_field_factor": 1.0,
+                "anneal_slope": 0.0,
+
+                "num_secondary_samples": 8,
+                "num_secondary_samples_render": 8,
+                "num_secondary_samples_diff": 16,
+                "num_secondary_samples_diff_render": 16,
+
+                "num_surface_light_field_samples": 16,
+
+                "prefixes": None,
+                "exclude_prefixes": None,
+                "replace_dict": None,
+
+                "extra_losses": {
+                    "material_ray_sampler": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "material_smoothness": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "surface_light_field": {
+                        "cache_main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                },
+            },
+            "material_light": {
+                "render_chunk_size": 4096,
+
+                "use_light_sampler": True,
+                "use_material": True,
+                "use_surface_light_field": False,
+
+                "optimize_cache": True,
+                "optimize_light": True,
+                "optimize_surface_light_field": True,
+
+                "reduce_cache_factor": 1.0,
+                "reduce_surface_light_field_factor": 1.0,
+                "anneal_slope": 0.0,
+
+                "num_secondary_samples": 4,
+                "num_secondary_samples_render": 4,
+
+                "prefixes": None,
+                "exclude_prefixes": None,
+                "replace_dict": None,
+
+                "extra_losses": {
+                    "material_ray_sampler": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "material_smoothness": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "light_sampling": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                },
+            },
+            "material_surface_light_field_light": {
+                "render_chunk_size": 4096,
+
+                "use_light_sampler": True,
+                "use_material": True,
+                "use_surface_light_field": True,
+
+                "optimize_cache": True,
+                "optimize_light": True,
+                "optimize_surface_light_field": True,
+
+                "reduce_cache_factor": 1.0,
+                "reduce_surface_light_field_factor": 1.0,
+                "anneal_slope": 0.0,
+
+                "num_secondary_samples": 8,
+                "num_secondary_samples_render": 8,
+                "num_secondary_samples_diff": 16,
+                "num_secondary_samples_diff_render": 16,
+
+                "num_surface_light_field_samples": 16,
+
+                "prefixes": None,
+                "exclude_prefixes": None,
+                "replace_dict": None,
+
+                "extra_losses": {
+                    "material_ray_sampler": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "material_smoothness": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "light_sampling": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "surface_light_field": {
+                        "cache_main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                },
+            },
+            "material_from_scratch": {
+                "render_chunk_size": 4096,
+
+                "use_light_sampler": False,
+                "use_material": True,
+                "use_surface_light_field": False,
+
+                "optimize_cache": True,
+                "optimize_light": False,
+                "optimize_surface_light_field": False,
+
+                "reduce_cache_factor": 1.0,
+                "reduce_surface_light_field_factor": 1.0,
+
+                "num_secondary_samples": 4,
+                "num_secondary_samples_render": 4,
+
+                "prefixes": None,
+                "exclude_prefixes": None,
+                "replace_dict": None,
+
+                "extra_losses": {
+                    "material_ray_sampler": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "material_smoothness": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                },
+            },
+            "material_light_from_scratch": {
+                "render_chunk_size": 4096,
+
+                "use_light_sampler": True,
+                "use_material": True,
+                "use_surface_light_field": False,
+
+                "optimize_cache": True,
+                "optimize_light": True,
+                "optimize_surface_light_field": False,
+
+                "reduce_cache_factor": 1.0,
+                "reduce_surface_light_field_factor": 1.0,
+
+                "num_secondary_samples": 4,
+                "num_secondary_samples_render": 4,
+
+                "prefixes": None,
+                "exclude_prefixes": None,
+                "replace_dict": None,
+
+                "extra_losses": {
+                    "material_ray_sampler": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "material_smoothness": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "light_sampling": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                },
+            },
+            "material_light_finetune": {
+                "render_chunk_size": 4096,
+
+                "use_light_sampler": True,
+                "use_material": True,
+                "use_surface_light_field": False,
+
+                "optimize_cache": True,
+                "optimize_light": True,
+                "optimize_surface_light_field": False,
+
+                "reduce_cache_factor": 1.0,
+                "reduce_surface_light_field_factor": 1.0,
+
+                "num_secondary_samples": 4,
+                "num_secondary_samples_render": 4,
+
+                "prefixes": None,
+                "exclude_prefixes": None,
+                "replace_dict": None,
+
+                "anneal_slope": 0.0,
+
+                "extra_losses": {
+                    "material_ray_sampler": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "material_smoothness": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "light_sampling": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                },
+            },
+            "material_surface_light_field_from_scratch": {
+                "render_chunk_size": 4096,
+
+                "use_light_sampler": False,
+                "use_material": True,
+                "use_surface_light_field": True,
+
+                "optimize_cache": True,
+                "optimize_light": True,
+                "optimize_surface_light_field": True,
+
+                "num_secondary_samples": 16,
+                "num_secondary_samples_render": 16,
+                "num_secondary_samples_diff": 2,
+                "num_secondary_samples_diff_render": 2,
+
+                "reduce_cache_factor": 1.0,
+                "reduce_surface_light_field_factor": 1.0,
+
+                "prefixes": None,
+                "exclude_prefixes": None,
+                "replace_dict": None,
+
+                "extra_losses": {
+                    "material_ray_sampler": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "material_smoothness": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "surface_light_field": {
+                        "cache_main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                },
+            },
+            "material_surface_light_field_light_from_scratch": {
+                "render_chunk_size": 4096,
+
+                "use_light_sampler": True,
+                "use_material": True,
+                "use_surface_light_field": True,
+
+                "optimize_cache": True,
+                "optimize_light": True,
+                "optimize_surface_light_field": True,
+
+                "num_secondary_samples": 16,
+                "num_secondary_samples_render": 16,
+                "num_secondary_samples_diff": 2,
+                "num_secondary_samples_diff_render": 2,
+
+                "reduce_cache_factor": 1.0,
+                "reduce_surface_light_field_factor": 1.0,
+
+                "prefixes": None,
+                "exclude_prefixes": None,
+                "replace_dict": None,
+
+                "extra_losses": {
+                    "material_ray_sampler": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "material_smoothness": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "light_sampling": {
+                        "main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                    "surface_light_field": {
+                        "cache_main": {
+                            "mult": 1.0, "start_frac": 0.0
+                        },
+                    },
+                },
+            },
+        }

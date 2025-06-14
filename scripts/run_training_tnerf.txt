@@ -1,0 +1,4 @@
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene cornell_tnerf --stage cache --batch_size 4096 --grad_accum_steps 1 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene peppers_tnerf --stage cache --batch_size 4096 --grad_accum_steps 1 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene pots_tnerf --stage cache --batch_size 4096 --grad_accum_steps 1 --early_exit_steps 100000
+CUDA_VISIBLE_DEVICES=0 bash scripts/train_dgp.sh --scene kitchen_tnerf --stage cache --batch_size 4096 --grad_accum_steps 1 --early_exit_steps 100000

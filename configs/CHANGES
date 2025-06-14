@@ -1,0 +1,3 @@
+* Missing some cache losses
+* Missing backprop from material to cache
+* Smaller grids for proposals

@@ -1,0 +1,1 @@
+CUDA_VISIBLE_DEVICES=0 bash scripts/eval_dgp.sh --scene house --stage material_light_resample_finetune --sample_render_factor 4 --fixed_camera --eval_train --sl_relight --render_repeats 32 --vis_start 0 --vis_end 1

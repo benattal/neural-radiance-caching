@@ -1,0 +1,31 @@
+include 'transient_simulation_ngp_yobo_spheres.gin'
+
+Config.light_name = ''
+
+Config.use_itof = True
+Config.itof_frequency_phase_shifts = [ [30000000, 0.0], [30000000, 3.14159265359], [170000000, 0.0], [170000000, 3.14159265359] ]
+Config.data_loss_mult = 0.05
+
+# Sampling and contraction
+TransientMaterialModel.cache_loss = 'rawnerf_transient_itof'
+TransientMaterialModel.loss = 'rawnerf_transient_itof_unbiased'
+Config.cache_consistency_loss_type = 'rawnerf_transient_unbiased'
+
+Config.distortion_loss_mult = 0.001
+Config.orientation_loss_mult = 0.001
+Config.predicted_normal_loss_mult = 0.0002
+Config.predicted_normal_reverse_loss_mult = 0.001
+Config.predicted_normal_loss_stopgrad_weight = 0.1
+Config.material_predicted_normal_loss_mult = 0
+Config.opaque_loss_weight = 0.0025
+Config.empty_loss_weight = 0.0
+
+Config.use_geometry_smoothness = True
+Config.geometry_smoothness_noise = 0.1
+Config.geometry_smoothness_weight_normals = 0.00025
+Config.geometry_smoothness_weight_normals_pred = 0.0
+Config.geometry_smoothness_weight_density = 0.0
+
+Config.param_regularizers = {
+    'density_grid': (0.01, @jnp.mean, 2, 1),
+}

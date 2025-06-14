@@ -1,0 +1,8 @@
+include 'transient_simulation_ngp_yobo_kettle_fwp.gin'
+
+TransientNeRFMLP.use_ambient = False
+TransientNeRFMLP.use_indirect = False
+TransientNeRFMLP.use_active = True
+TransientMaterialMLP.use_active = False
+TransientMaterialMLP.use_indirect = False
+TransientSurfaceLightFieldMLP.use_indirect = False
