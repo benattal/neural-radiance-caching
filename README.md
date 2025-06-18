@@ -11,7 +11,7 @@
 This repository contains the code for two papers:
 
 1. [Flash Cache: Reducing Bias in Radiance Cache Based Inverse Rendering](https://benattal.github.io/flash-cache/)
-2. [Neural Inverse Rendering from Propagating Light](https://benattal.github.io/flash-cache/)
+2. [Neural Inverse Rendering from Propagating Light](https://anaghmalik.com/InvProp/)
 
 ## Flash Cache: Reducing Bias in Radiance Cache Based Inverse Rendering
 
@@ -23,7 +23,7 @@ The goal of *Flash Cache* is to recover the geometry, materials, and potentially
 
 ### [Website](https://benattal.github.io/flash-cache/) |  [Paper](https://benattal.github.io/flash-cache/flash_cache.pdf)
 
-*Neural Inverse Rendering from Propagating Light* is an extension of *Flash Cache* that models time-resolved light transport, and performs inverse rendering from ultrafast videos that capture light in flight.
+*Neural Inverse Rendering from Propagating Light*, or *InvProp* is an extension of this idea, which models time-resolved light transport via *time resolved radiance caching*, and performs inverse rendering from ultrafast videos that capture light in flight.
 
 # Installation
 
@@ -55,7 +55,7 @@ Try running the above with the scene name set to `hotdog`. You should see result
 
 # Running Flash Cache
 
-In our paper, we train and evaluate flash cache on the following scenes from the TensoIR-synthetic dataset: `hotdog`, `lego`, `armadillo`, and `ficus`. We also train and evaluate on the following scenes from the open illumination dataset: `obj_02_egg`, `obj_04_stone`, `obj_05_bird`, `obj_17_box`, `obj_26_pumpkin`, `obj_29_hat`, `obj_35_cup`, `obj_36_sponge`, `obj_42_banana`, `obj_48_bucket`.
+We train and evaluate *Flash Cache* on the following scenes from the TensoIR-synthetic dataset: `hotdog`, `lego`, `armadillo`, and `ficus`. We also train and evaluate on the following scenes from the open illumination dataset: `obj_02_egg`, `obj_04_stone`, `obj_05_bird`, `obj_17_box`, `obj_26_pumpkin`, `obj_29_hat`, `obj_35_cup`, `obj_36_sponge`, `obj_42_banana`, `obj_48_bucket`.
 
 In order to perform evaluation for a specific scene, run:
 
@@ -67,7 +67,7 @@ where the physically-based renderings are averaged `N` times.
 
 # Running Neural Inverse Rendering from Propagating Light
 
-In our paper, we train and evaluate inv prop on the following scenes from our synthetic dataset: `cornell`, `pots`, `peppers`, and `kitchen`. We also train and evaluate on the following captured scenes: `statue`, `spheres`, `globe`, `house`.
+We train and evaluate *InvProp* on the following scenes from our synthetic dataset: `cornell`, `pots`, `peppers`, and `kitchen`. We also train and evaluate on the following captured scenes: `statue`, `spheres`, `globe`, `house`.
 
 In order to perform evaluation for a specific scene, run:
 
