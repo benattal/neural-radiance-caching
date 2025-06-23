@@ -51,7 +51,7 @@ done
 
 while (( "$#" )); do
   case "$1" in
-    --no_vis)
+    --no_vis_secondary)
       NO_VIS=1
       shift
       ;;

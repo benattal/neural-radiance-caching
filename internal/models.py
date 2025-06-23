@@ -65,6 +65,8 @@ from internal.inverse_render import render_utils
 class Model(nn.Module):
     config: Any = None  # A Config class, must be set upon construction.
 
+    use_material: bool = False
+
     # Random generator
     random_generator_2d: Any = render_utils.RandomGenerator2D(1, 1, False)
 
@@ -318,8 +320,6 @@ class Model(nn.Module):
             return integrator_results
 
         stopgrad_cache_weight = render_kwargs.pop("stopgrad_cache_weight", None) if is_secondary else None
-        # render_kwargs.pop("stopgrad_cache_weight", None)
-        # stopgrad_cache_weight = self.stopgrad_cache_weight if is_secondary else None
 
         # Stopgrad cache
         integrator_keys = list(integrator_results.keys())
@@ -375,8 +375,6 @@ class Model(nn.Module):
             env_map_w = render_kwargs.pop("env_map_w", None)
             env_map_h = render_kwargs.pop("env_map_h", None)
             stopgrad_cache_weight = render_kwargs.pop("stopgrad_cache_weight", None)
-            # render_kwargs.pop("stopgrad_cache_weight", None)
-            # stopgrad_cache_weight = self.stopgrad_env_map_weight
 
             # Stopgrad rays
             env_rays = utils.partial_stopgrad_rays(rays, stopgrad_cache_weight)

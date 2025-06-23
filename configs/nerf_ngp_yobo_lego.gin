@@ -7,12 +7,18 @@ ProposalVolumeSampler.anneal_clip = 0.4
 Config.predicted_normal_loss_mult = 0.001
 Config.predicted_normal_reverse_loss_mult = 0.01
 Config.geometry_smoothness_weight_normals = 0.001
-Config.distortion_loss_mult = 0.0
-Config.orientation_loss_mult = 0.0
+Config.distortion_loss_mult = 0.01
+Config.orientation_loss_mult = 0.01
 
 Config.use_normal_weight_ease = True
 Config.use_normal_weight_ease_backward = True
 
+NeRFMLP.stopgrad_normals_weight = 1.0
+
 Config.normal_weight_ease_frac = 0.0
 Config.normal_weight_ease_start = 0.0
 Config.normal_weight_ease_min = 0.001
+
+TransientMaterialMLP.stopgrad_rays = True
+TransientMaterialMLP.stopgrad_samples = True
+TransientMaterialMLP.stopgrad_rgb = True

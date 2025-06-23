@@ -289,7 +289,7 @@ TransientMaterialMLP.brdf_activation = {
 TransientMaterialMLP.brdf_stopgrad = {
     'albedo': 1.0,
     'specular_albedo': 1.0,
-    'roughness': 1.0,
+    'roughness': 0.25,
     'F_0': 1.0,
     'metalness': 1.0,
     'diffuseness': 1.0,

@@ -45,9 +45,9 @@ HashEncoding.bbox_scaling = 1.0
 
 # Regularizers
 Config.param_regularizers = {
-    'density_grid': (0.1, @jnp.mean, 2, 1),
-    'light_grid': (0.1, @jnp.mean, 2, 1),
-    'material_grid': (0.1, @jnp.mean, 2, 1),
+    'density_grid': (1.0, @jnp.mean, 2, 1),
+    'light_grid': (1.0, @jnp.mean, 2, 1),
+    'material_grid': (1.0, @jnp.mean, 2, 1),
 }
 Config.material_ray_sampler_interlevel_loss_mult = 0.0
 Config.material_ray_sampler_normal_loss_mult = 0.0
@@ -79,7 +79,7 @@ Config.normal_weight_ease_frac = 0.2
 Config.normal_weight_ease_start = 0.2
 Config.normal_weight_ease_min = 0.001
 
-NeRFMLP.stopgrad_normals_weight = 0.25
+NeRFMLP.stopgrad_normals_weight = 1.0
 
 MaterialMLP.normals_target = 'normals_to_use'
 Config.material_normals_target = 'normals_to_use'
@@ -227,6 +227,27 @@ NeRFMLP.surface_lf_params = {
     'use_bottleneck': False,
     'use_density_feature': False,
     'use_shader_bottleneck': False,
+}
+
+NeRFMLP.surface_lf_params = {
+    'net_depth': 2,
+    'net_width': 64,
+    'skip_layer': 2,
+    'bottleneck_width': 128,
+
+    'use_directional_enc': True,
+    'use_ide': True,
+    'deg_view': 5,
+
+    'net_depth_viewdirs': 4,
+    'net_width_viewdirs': 128,
+    'bottleneck_viewdirs': 128,
+    'skip_layer_dir': 2,
+
+    'use_grid': False,
+    'use_bottleneck': False,
+    'use_density_feature': False,
+    'use_shader_bottleneck': True,
 }
 
 NeRFModel.env_map_params = {
@@ -433,8 +454,8 @@ MaterialModel.stopgrad_weight_model = 1.0
 MaterialModel.stopgrad_geometry_weight = 0.0
 
 Config.cache_consistency_loss_mode = 'shader'
-Config.cache_consistency_use_integrated = False
-Config.cache_consistency_loss_weight = 1.0
+Config.cache_consistency_use_integrated = True
+Config.cache_consistency_loss_weight = 0.0
 Config.cache_consistency_stopgrad_weight_cache = 1.0
 
 Config.volume_variate = False

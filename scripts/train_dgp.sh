@@ -44,6 +44,7 @@ SECONDARY_GRAD_ACCUM_STEPS=1
 
 EARLY_EXIT_STEPS=200000
 NO_VIS=0
+NO_VIS_SECONDARY=0
 
 SL_RELIGHT=0
 FIXED_LIGHT=0
@@ -70,6 +71,10 @@ while (( "$#" )); do
   case "$1" in
     --no_vis)
       NO_VIS=1
+      shift
+      ;;
+    --no_vis_secondary)
+      NO_VIS_SECONDARY=1
       shift
       ;;
     --scene)
@@ -188,7 +193,11 @@ if [ $USE_TAKE_STAGE -eq 1 ]; then
     CMD="$CMD --take_stage $TAKE_STAGE"
 fi 
 
-if [ $NO_VIS -eq 0 ]; then
+if [ $NO_VIS -eq 1 ]; then
+    CMD="$CMD --no_vis"
+fi
+
+if [ $NO_VIS_SECONDARY -eq 0 ]; then
     CMD="$CMD --vis_secondary --vis_surface_light_field --vis_light_sampler"
 fi
 

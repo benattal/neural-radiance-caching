@@ -9,12 +9,11 @@
 #SBATCH --error=/scratch/ondemand28/battal/active-yobo/logs/slurm_outputs/error/job_%A_%a.err             # Standard error log (%j is replaced with the job ID)
 #SBATCH --qos=priority
 #SBATCH --time=24:00:00
-#SBATCH --array=1-3%10
+#SBATCH --array=1-4%10
 
 # prepare your environment here
 
 # Activate virtual environment (if you have one)
 cd /scratch/ondemand28/battal/active-yobo
 
-# eval $(sed -n "${SLURM_ARRAY_TASK_ID}p" < scripts/run_training_material.txt)
-eval $(sed -n "${SLURM_ARRAY_TASK_ID}p" < scripts/run_finetune_material.txt)
+eval $(sed -n "${SLURM_ARRAY_TASK_ID}p" < scripts/run_training_material.txt)
