@@ -107,3 +107,15 @@ where the physically-based renderings are averaged `N` times.
   year = {2024}
 }
 ```
+
+# Contributors / co-authors
+- [Benjamin Attal](https://benattal.github.io/)
+- [Anagh Malik](https://anaghmalik.com/)
+- [Pratul Srinivasan](https://pratulsrinivasan.github.io/)
+- [David Lindell](https://davidlindell.com/)
+- [Matthew O'Toole](https://www.cs.cmu.edu/~motoole2/)
+- [Dor Verbin](https://dorverbin.github.io/)
+- [Andrew Xie](https://andrewxie.com/)
+- [Ben Mildenhall](https://bmild.github.io/)
+- [Peter Hedman](https://phogzone.com/)
+- [Jon Barron](https://jonbarron.info/)
