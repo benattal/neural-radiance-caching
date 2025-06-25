@@ -21,7 +21,7 @@ The goal of *Flash Cache* is to recover the geometry, materials, and potentially
 
 ## Neural Inverse Rendering from Propagating Light
 
-### [Website](https://benattal.github.io/flash-cache/) |  [Paper](https://benattal.github.io/flash-cache/flash_cache.pdf)
+### [Website](https://anaghmalik.com/InvProp/) |  [Paper](https://www.arxiv.org/pdf/2506.05347)
 
 *Neural Inverse Rendering from Propagating Light*, or *InvProp* is an extension of this idea, and of the paper [*Flying with Photons: Rendering Novel Views of Propagating Light*](https://anaghmalik.com/FlyingWithPhotons/gallery.html), which models time-resolved light transport via *time resolved radiance caching*, and performs inverse rendering from ultrafast videos that capture light in flight.
 
